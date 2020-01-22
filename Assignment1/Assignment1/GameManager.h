@@ -16,7 +16,7 @@ namespace SDLFramework {
 
 		SDL_Event mEvent;
 
-		const int FRAME_RATE = 120;
+		const int FRAME_RATE = 60;
 		Timer* mTimer;
 
 		GameEntity* mParent;
