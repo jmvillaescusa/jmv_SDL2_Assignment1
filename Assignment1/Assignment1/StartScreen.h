@@ -2,6 +2,7 @@
 #define _STARTSCREEN_H
 #include "AnimatedTexture.h"
 #include "InputManager.h"
+#include "Scoreboard.h"
 
 using namespace SDLFramework;
 
@@ -10,13 +11,35 @@ private:
 	Timer* mTimer;
 	InputManager* mInputManager;
 
+	// Top Bar Entities
+	GameEntity* mTopBar;
+	Texture* mPlayerTwo;
+	Texture* mPlayerOne;
+	Texture* mHiScore;
+
+	Scoreboard* mPlayerOneScore;
+	Scoreboard* mPlayerTwoScore;
+	Scoreboard* mTopScore;
+
 	// Logo Entities
 	GameEntity* mLogo;
 	AnimatedTexture* mDonkeyKong;
 	Texture* mTitle;
 
 	// Play Mode Entities
+	GameEntity* mPlayModes;
+	Texture* mOnePlayerModeA;
+	Texture* mOnePlayerModeB;
+	Texture* mTwoPlayerModeA;
+	Texture* mTwoPlayerModeB;
+
+	Texture* mCursor;
+	Vector2 mCursorStartPos;
+	Vector2 mCursorOffset;
 	int mSelectedMode;
+
+	// Bottom Bar Entities
+	Texture* mCopyrights;
 
 	// Screen Animation Variables
 	Vector2 mAnimationStartPos;
@@ -28,7 +51,6 @@ private:
 public:
 	StartScreen();
 	~StartScreen();
-
 
 	void ResetAnimation();
 

@@ -1,2 +1,12 @@
-﻿  StartScreen.cpp
+﻿  AnimatedTexture.cpp
+  AssetManager.cpp
+  AudioManager.cpp
+  GameManager.cpp
+  Graphics.cpp
+  Scoreboard.cpp
+  ScreenManager.cpp
+  StartScreen.cpp
+  Texture.cpp
+  main.cpp
+  Generating Code...
   Assignment1.vcxproj -> C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Debug\Assignment1.exe
