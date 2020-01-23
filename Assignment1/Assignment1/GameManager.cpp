@@ -38,6 +38,8 @@ namespace SDLFramework {
 
 	void GameManager::Update() {
 		mInputManager->Update();
+
+		mScreenManager->Update();
 	}
 
 	void GameManager::LateUpdate() {
@@ -46,6 +48,7 @@ namespace SDLFramework {
 
 	void GameManager::Render() {
 		mGraphics->ClearBackBuffer();
+		mScreenManager->Render();
 		mGraphics->Render();
 	}
 
@@ -61,11 +64,15 @@ namespace SDLFramework {
 		mAudioManager = AudioManager::Instance();
 
 		mTimer = Timer::Instance();
+		mScreenManager = ScreenManager::Instance();
 	}
 
 	GameManager::~GameManager() {
 		Timer::Release();
 		mTimer = nullptr;
+
+		ScreenManager::Release();
+		mScreenManager = nullptr;
 
 		AudioManager::Release();
 		mAudioManager = nullptr;

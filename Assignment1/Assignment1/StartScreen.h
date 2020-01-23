@@ -10,6 +10,14 @@ private:
 	Timer* mTimer;
 	InputManager* mInputManager;
 
+	// Logo Entities
+	GameEntity* mLogo;
+	AnimatedTexture* mDonkeyKong;
+	Texture* mTitle;
+
+	// Play Mode Entities
+	int mSelectedMode;
+
 	// Screen Animation Variables
 	Vector2 mAnimationStartPos;
 	Vector2 mAnimationEndPos;
@@ -21,6 +29,10 @@ public:
 	StartScreen();
 	~StartScreen();
 
+
+	void ResetAnimation();
+
+	int SelectedMode();
 	void ChangeSelectedMode(int change);
 
 	void Update() override;
