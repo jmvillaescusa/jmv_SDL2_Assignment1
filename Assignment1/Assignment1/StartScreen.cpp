@@ -3,6 +3,7 @@
 StartScreen::StartScreen() {
 	mTimer = Timer::Instance();
 	mInputManager = InputManager::Instance();
+	mAudioManager = AudioManager::Instance();
 
 	// Top Bar Entities
 	mTopBar = new GameEntity(Graphics::SCREEN_WIDTH * 0.5f, 50);
@@ -36,7 +37,7 @@ StartScreen::StartScreen() {
 	// Logo Animation Variables
 	mAnimationStartPos = Vector2(Graphics::SCREEN_WIDTH, 0.0f);
 	mAnimationEndPos = Vec2_Zero;
-	mAnimationTotalTime = 5.0f;
+	mAnimationTotalTime = 4.25f;
 	mAnimationTimer = 0.0f;
 	mAnimationDone = false;
 
@@ -84,11 +85,12 @@ StartScreen::StartScreen() {
 	mCopyrights->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.925f);
 	mCopyrights->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.925f);
 
-
+	PlayTheme();
 }
 StartScreen::~StartScreen() {
 	mTimer = nullptr;
 	mInputManager = nullptr;
+	mAudioManager = nullptr;
 
 	// Top Bar Entities
 	delete mTopBar;
@@ -134,9 +136,12 @@ StartScreen::~StartScreen() {
 	mCopyrights = nullptr;
 }
 
+void StartScreen::PlayTheme() {
+	mAudioManager->PlayMusic("MUS/DK3Theme.wav", 0);
+}
+
 void StartScreen::Update() {
 	mDonkeyKong->Update();
-
 	if (!mAnimationDone) {
 		mAnimationTimer += mTimer->DeltaTime();
 		mTitle->Position(Lerp(mAnimationStartPos, mAnimationEndPos, mAnimationTimer / mAnimationTotalTime));
@@ -162,13 +167,14 @@ void StartScreen::Update() {
 void StartScreen::ResetAnimation() {
 	mAnimationStartPos = Vector2(Graphics::SCREEN_WIDTH, 0.0f);
 	mAnimationEndPos = Vec2_Zero;
-	mAnimationTotalTime = 5.0f;
+	mAnimationTotalTime = 4.25f;
 	mAnimationTimer = 0.0f;
 	mAnimationDone = false;
 
 	mPlayerOne->Active(false);
 
 	mTitle->Position(mAnimationStartPos);
+	PlayTheme();
 }
 
 int StartScreen::SelectedMode() {

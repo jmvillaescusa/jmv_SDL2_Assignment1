@@ -3,6 +3,7 @@
 #include "AnimatedTexture.h"
 #include "InputManager.h"
 #include "Scoreboard.h"
+#include "AudioManager.h"
 
 using namespace SDLFramework;
 
@@ -10,6 +11,7 @@ class StartScreen : public GameEntity {
 private:
 	Timer* mTimer;
 	InputManager* mInputManager;
+	AudioManager* mAudioManager;
 
 	// Top Bar Entities
 	GameEntity* mTopBar;
@@ -53,6 +55,8 @@ public:
 	~StartScreen();
 
 	void ResetAnimation();
+
+	void PlayTheme();
 
 	int SelectedMode();
 	void ChangeSelectedMode(int change);

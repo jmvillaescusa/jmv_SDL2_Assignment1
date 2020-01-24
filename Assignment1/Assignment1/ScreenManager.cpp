@@ -20,9 +20,9 @@ ScreenManager::ScreenManager() {
 }
 ScreenManager::~ScreenManager()  {
 	mInput = nullptr;
-
 	delete mStartScreen;
 	mStartScreen = nullptr;
+
 }
 
 void ScreenManager::Update() {
@@ -31,16 +31,18 @@ void ScreenManager::Update() {
 	{
 	case START:
 		mStartScreen->Update();
+		
 
 		if (mInput->KeyPressed(SDL_SCANCODE_RETURN)) {
 			mCurrentScreen = PLAY;
-			mStartScreen->ResetAnimation();
+			
 		}
 		break;
 
 	case PLAY:
 		if (mInput->KeyPressed(SDL_SCANCODE_ESCAPE)) {
 			mCurrentScreen = START;
+			mStartScreen->ResetAnimation();
 		}
 		break;
 	}
