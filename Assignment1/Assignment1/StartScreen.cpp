@@ -37,7 +37,7 @@ StartScreen::StartScreen() {
 	// Logo Animation Variables
 	mAnimationStartPos = Vector2(Graphics::SCREEN_WIDTH, 0.0f);
 	mAnimationEndPos = Vec2_Zero;
-	mAnimationTotalTime = 4.25f;
+	mAnimationTotalTime = 4.45f;
 	mAnimationTimer = 0.0f;
 	mAnimationDone = false;
 
@@ -167,7 +167,7 @@ void StartScreen::Update() {
 void StartScreen::ResetAnimation() {
 	mAnimationStartPos = Vector2(Graphics::SCREEN_WIDTH, 0.0f);
 	mAnimationEndPos = Vec2_Zero;
-	mAnimationTotalTime = 4.25f;
+	mAnimationTotalTime = 4.45f;
 	mAnimationTimer = 0.0f;
 	mAnimationDone = false;
 
