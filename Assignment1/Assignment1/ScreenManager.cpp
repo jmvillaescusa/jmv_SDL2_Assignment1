@@ -35,14 +35,14 @@ void ScreenManager::Update() {
 
 		if (mInput->KeyPressed(SDL_SCANCODE_RETURN)) {
 			mCurrentScreen = PLAY;
-			
+			mStartScreen->ResetAnimation();
 		}
 		break;
 
 	case PLAY:
 		if (mInput->KeyPressed(SDL_SCANCODE_ESCAPE)) {
 			mCurrentScreen = START;
-			mStartScreen->ResetAnimation();
+			mStartScreen->PlayTheme();
 		}
 		break;
 	}

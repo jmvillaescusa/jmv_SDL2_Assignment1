@@ -174,7 +174,6 @@ void StartScreen::ResetAnimation() {
 	mPlayerOne->Active(false);
 
 	mTitle->Position(mAnimationStartPos);
-	PlayTheme();
 }
 
 int StartScreen::SelectedMode() {
