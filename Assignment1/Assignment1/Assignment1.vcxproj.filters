@@ -19,17 +19,17 @@
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{7aed3401-ecf8-435e-897f-1bfcf363c676}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SDL2">
-      <UniqueIdentifier>{ddeeb969-57fb-4010-8821-ba4213bd4d70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Managers">
       <UniqueIdentifier>{9dcad2f3-232c-4476-8299-8b5ef63b5d96}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\SDL2">
-      <UniqueIdentifier>{10dc6818-a2ad-4beb-8cd2-e41681a5ebe1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{0cc15262-faa8-41da-ad8e-7ab098db79f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DK3">
+      <UniqueIdentifier>{ddeeb969-57fb-4010-8821-ba4213bd4d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DK3">
+      <UniqueIdentifier>{10dc6818-a2ad-4beb-8cd2-e41681a5ebe1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +52,7 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="StartScreen.h">
-      <Filter>Header Files\SDL2</Filter>
+      <Filter>Header Files\DK3</Filter>
     </ClInclude>
     <ClInclude Include="AssetManager.h">
       <Filter>Header Files\Managers</Filter>
@@ -73,7 +73,10 @@
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Scoreboard.h">
-      <Filter>Header Files\SDL2</Filter>
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScreen.h">
+      <Filter>Header Files\DK3</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -96,7 +99,7 @@
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="StartScreen.cpp">
-      <Filter>Source Files\SDL2</Filter>
+      <Filter>Source Files\DK3</Filter>
     </ClCompile>
     <ClCompile Include="AssetManager.cpp">
       <Filter>Source Files\Managers</Filter>
@@ -117,7 +120,7 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Scoreboard.cpp">
-      <Filter>Source Files\SDL2</Filter>
+      <Filter>Source Files\DK3</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
