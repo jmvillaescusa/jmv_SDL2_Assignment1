@@ -78,6 +78,12 @@
     <ClInclude Include="PlayScreen.h">
       <Filter>Header Files\DK3</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -120,6 +126,9 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Scoreboard.cpp">
+      <Filter>Source Files\DK3</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScreen.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
   </ItemGroup>
