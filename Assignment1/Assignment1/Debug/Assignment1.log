@@ -1,1 +1,15 @@
-﻿
+﻿  BoxCollider.cpp
+  CircleCollider.cpp
+  Collider.cpp
+  GameManager.cpp
+  Level.cpp
+  main.cpp
+  PhysEntity.cpp
+  PhysicsManager.cpp
+C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\PhysEntity.cpp(14,21): warning C4018: '<': signed/unsigned mismatch
+  Player.cpp
+  PlayScreen.cpp
+  ScreenManager.cpp
+  Generating Code...
+C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\PhysicsManager.cpp(32,21): warning C4018: '<': signed/unsigned mismatch
+  Assignment1.vcxproj -> C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Debug\Assignment1.exe

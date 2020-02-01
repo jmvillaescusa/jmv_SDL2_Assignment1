@@ -15,6 +15,7 @@ void ScreenManager::Release() {
 ScreenManager::ScreenManager() {
 	mInput = InputManager::Instance();
 	mStartScreen = new StartScreen();
+	mPlayScreen = new PlayScreen();
 
 	mCurrentScreen = START;
 }
@@ -36,10 +37,12 @@ void ScreenManager::Update() {
 		if (mInput->KeyPressed(SDL_SCANCODE_RETURN)) {
 			mCurrentScreen = PLAY;
 			mStartScreen->ResetAnimation();
+			mPlayScreen->StartNewGame();
 		}
 		break;
 
 	case PLAY:
+		mPlayScreen->Update();
 		if (mInput->KeyPressed(SDL_SCANCODE_ESCAPE)) {
 			mCurrentScreen = START;
 			mStartScreen->PlayTheme();
@@ -56,7 +59,7 @@ void ScreenManager::Render() {
 		break;
 
 	case PLAY:
-
+		mPlayScreen->Render();
 		break;
 	}
 }
