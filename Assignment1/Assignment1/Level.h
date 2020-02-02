@@ -12,7 +12,7 @@ private:
 	int mLevel;
 	bool mLevelStarted;
 
-	float mLabelTimer;
+	float mLevelTimer;
 
 	Player* mPlayer;
 	bool mPlayerHit;
@@ -29,8 +29,8 @@ private:
 
 	// Enemy codes
 
-	void StartStage();
-	void HandleStartLebels();
+	void StartLevel();
+	void HandleStartLevels();
 	void HandleCollisions();
 	void HandlePlayerDeath();
 

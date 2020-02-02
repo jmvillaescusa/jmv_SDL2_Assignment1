@@ -1,11 +1,23 @@
 #include "Player.h"
+#include "BoxCollider.h"
+#include "PhysicsManager.h"
 
 void Player::HandleMovement() {
 	if (mInput->KeyDown(SDL_SCANCODE_RIGHT)) {
+		mMovingRight = true;
+		mIsMoving = true;
 		Translate(Vec2_Right * mMoveSpeed * mTimer->DeltaTime(), WORLD);
+		mPlayerWalkRight->Update();
 	}
 	else if (mInput->KeyDown(SDL_SCANCODE_LEFT)) {
+		mMovingRight = false;
+		mIsMoving = true;
 		Translate(-Vec2_Right * mMoveSpeed * mTimer->DeltaTime(), WORLD);
+		mPlayerWalkLeft->Update();
+	}
+
+	if (mInput->KeyRelease(SDL_SCANCODE_RIGHT) || mInput->KeyRelease(SDL_SCANCODE_LEFT)) {
+		mIsMoving = false;
 	}
 
 	Vector2 pos = Position(LOCAL);
@@ -20,7 +32,14 @@ void Player::HandleMovement() {
 }
 
 void Player::HandleFiring() {
-
+	if (mInput->KeyPressed(SDL_SCANCODE_SPACE)) {
+		for (int i = 0; i < MAX_SPRAYS; ++i) {
+			if (!mSprays[i]->Active()) {
+				mSprays[i]->Fire(Position());
+				break;
+			}
+		}
+	}
 }
 
 Player::Player() {
@@ -28,34 +47,59 @@ Player::Player() {
 	mInput = InputManager::Instance();
 	mAudio = AudioManager::Instance();
 
-	mVisible = false;
+	mVisible = true;
 	mAnimating = false;
 	mWasHit = false;
 
 	mScore = 0;
 	mLives = 3;
 
-	mPlayer = new AnimatedTexture("stanley.png", 0, 0, 77, 77, 4, 1.0, AnimatedTexture::HORIZONTAL);
+	mPlayer = new Texture("stanley_walkleft.png", 0, 0, 77, 90);
 	mPlayer->Parent(this);
 	mPlayer->Position(Vec2_Zero);
 
+	mPlayerWalkLeft = new AnimatedTexture("stanley_walkleft.png", 0, 0, 77, 90, 4, 0.5f, AnimatedTexture::HORIZONTAL);
+	mPlayerWalkLeft->Parent(this);
+	mPlayerWalkRight = new AnimatedTexture("stanley_walkright.png", 0, 0, 77, 90, 4, 0.5f, AnimatedTexture::HORIZONTAL);
+	mPlayerWalkRight->Parent(this);
+
 	mMoveSpeed = 300.0f;
-	mMoveBounds = Vector2(0.0f, 800.0f);
+	mMoveBounds = Vector2(190.0f, 835.0f);
 
 	mDeathAnimation = new AnimatedTexture("stanley_death.png", 0, 0, 95, 96, 4, 5.0f, AnimatedTexture::HORIZONTAL);
 	mDeathAnimation->Parent(this);
 	mDeathAnimation->Position(Vec2_Zero);
 	mDeathAnimation->SetWrapMode(AnimatedTexture::ONCE);
 
+	// Bullet
+	for (int i = 0; i < MAX_SPRAYS; ++i) {
+		mSprays[i] = new Spray(true);
+	}
+
 	// Collider
 	//AddCollider(new BoxCollider(Vector2()))
+
+	mId = PhysicsManager::Instance()->RegisterEntity(this, PhysicsManager::CollisionLayers::Friendly);
+
 }
 Player::~Player() {
 	mTimer = nullptr;
 	mInput = nullptr;
 	mAudio = nullptr;
 
+	delete mPlayer;
+	mPlayer = nullptr;
+	delete mPlayerWalkLeft;
+	mPlayerWalkLeft = nullptr;
+	delete mPlayerWalkRight;
+	mPlayerWalkRight = nullptr;
+	delete mDeathAnimation;
+	mDeathAnimation = nullptr;
 
+	// Bullets
+	for (auto s : mSprays) {
+		delete s;
+	}
 }
 
 void Player::Visible(bool visible) {
@@ -85,7 +129,7 @@ bool Player::IgnoreCollisions() {
 void Player::Hit(PhysEntity* other) {
 	mLives -= 1;
 	mAnimating = true;
-	
+	// Play sfx
 	mWasHit = true;
 }
 
@@ -111,6 +155,9 @@ void Player::Update() {
 	}
 
 	// Bullets
+	for (int i = 0; i < MAX_SPRAYS; ++i) {
+		mSprays[i]->Update();
+	}
 
 }
 void Player::Render() {
@@ -118,12 +165,23 @@ void Player::Render() {
 		if (mAnimating) {
 			mDeathAnimation->Render();
 		}
+		else if (mIsMoving) {
+			if (mMovingRight) {
+				mPlayerWalkRight->Render();
+			}
+			else {
+				mPlayerWalkLeft->Render();
+			}
+		}
 		else {
 			mPlayer->Render();
 		}
 	}
 
 	// bullets render
+	for (int i = 0; i < MAX_SPRAYS; ++i) {
+		mSprays[i]->Render();
+	}
 
-	// physentity render
+	PhysEntity::Render();
 }

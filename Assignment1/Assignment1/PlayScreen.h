@@ -1,8 +1,6 @@
 #ifndef _PLAYSCREEN_H
 #define _PLAYSCREEN_H
-#include "GameEntity.h"
 #include "Level.h"
-#include "AudioManager.h"
 
 using namespace SDLFramework;
 

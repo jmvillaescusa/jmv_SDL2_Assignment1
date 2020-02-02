@@ -1,8 +1,19 @@
 #include "Level.h"
 
-void Level::HandleStartLebels() {
-	mLabelTimer += mTimer->DeltaTime();
-	//if(mLabelTimer >= mLevel)
+void Level::HandleStartLevels() {
+	mLevelTimer += mTimer->DeltaTime();
+	if (mLevelTimer >= 1.0f) {
+		if (mLevel > 1) {
+			StartLevel();
+		}
+		else {
+			if (mLevelTimer >= 2.0f) {
+				StartLevel();
+				mPlayer->Active(true);
+				mPlayer->Visible(true);
+			}
+		}
+	}
 }
 
 void Level::HandleCollisions() {
@@ -12,7 +23,7 @@ void Level::HandleCollisions() {
 
 			mPlayerHit = true;
 			mRespawnTimer = 0.0f;
-			//mPlayer->Active(false);
+			mPlayer->Active(false);
 		}
 	}
 }
@@ -26,19 +37,30 @@ void Level::HandlePlayerDeath() {
 
 			mRespawnTimer += mTimer->DeltaTime();
 			if (mRespawnTimer >= mRespawnDelay) {
-				//mPlayer->Active(true);
+				mPlayer->Active(true);
 				mPlayer->Visible(true);
 				mPlayerHit = false;
 				
 			}
 		}
+		else {
+			if (mGameOverTimer == 0.0f) {
+				mPlayer->Visible(false);
+			}
+			
+			mGameOverTimer += mTimer->DeltaTime();
+			if (mGameOverTimer >= mGameOverDelay) {
+				mCurrentState = GAMEOVER;
+			}
+		}
 	}
 }
+
 // Enemy Behavior
 void Level::HandleEnemySpawning(){}
 void Level::HandleEnemyDiving(){}
 
-void Level::StartStage() {
+void Level::StartLevel() {
 	mLevelStarted = true;
 }
 
@@ -48,7 +70,7 @@ Level::Level(int level, Player* player) {
 	mLevel = level;
 	mLevelStarted = false;
 
-	mLabelTimer = 0.0f;
+	mLevelTimer = 0.0f;
 
 	// UI
 
@@ -60,7 +82,7 @@ Level::Level(int level, Player* player) {
 
 	mGameOverLabel = new Texture("GAME OVER", "emulogic.ttf", 32, { 150, 0, 0 });
 	mGameOverLabel->Parent(this);
-	mGameOverLabel->Position(Graphics::SCREEN_WIDTH * 0.4f, Graphics::SCREEN_HEIGHT * 0.5f);
+	mGameOverLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f);
 
 	mGameOverDelay = 6.0f;
 	mGameOverTimer = 0.0f;
@@ -85,7 +107,7 @@ Level::LevelStates Level::State() {
 
 void Level::Update() {
 	if (!mLevelStarted) {
-		HandleStartLebels();
+		HandleStartLevels();
 	}
 	else {
 		/*if () {
@@ -104,5 +126,21 @@ void Level::Update() {
 	}
 }
 void Level::Render() {
+	if (!mLevelStarted) {
 
+	}
+	else {
+		// Render Enemies
+
+
+		if (mPlayerHit) {
+			if (mRespawnTimer >= mRespawnLabelOnScreen) {
+				
+			}
+
+			if (mGameOverTimer >= mGameOverLabelOnScreen) {
+				mGameOverLabel->Render();
+			}
+		}
+	}
 }

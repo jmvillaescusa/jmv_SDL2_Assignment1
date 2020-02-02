@@ -4,6 +4,7 @@
 #include "AnimatedTexture.h"
 #include "AudioManager.h"
 #include "InputManager.h"
+#include "Spray.h"
 
 using namespace SDLFramework;
 
@@ -16,15 +17,22 @@ private:
 	bool mVisible;
 	bool mAnimating;
 	bool mWasHit;
+	bool mIsMoving;
+	bool mMovingRight;
 
 	int mScore;
 	int mLives;
 
-	AnimatedTexture* mPlayer;
+	Texture* mPlayer;
+	AnimatedTexture* mPlayerWalkLeft;
+	AnimatedTexture* mPlayerWalkRight;
 	AnimatedTexture* mDeathAnimation;
 	
 	float mMoveSpeed;
 	Vector2 mMoveBounds;
+
+	static const int MAX_SPRAYS = 3;
+	Spray* mSprays[MAX_SPRAYS];
 
 	void HandleMovement();
 	void HandleFiring();

@@ -108,6 +108,9 @@
     <ClInclude Include="PhysicsManager.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Spray.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Spray.cpp">
+      <Filter>Source Files\DK3</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
