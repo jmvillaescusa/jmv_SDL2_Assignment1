@@ -66,7 +66,7 @@ Player::Player() {
 	mMoveSpeed = 300.0f;
 	mMoveBounds = Vector2(190.0f, 835.0f);
 
-	mDeathAnimation = new AnimatedTexture("stanley_death.png", 0, 0, 95, 96, 4, 5.0f, AnimatedTexture::HORIZONTAL);
+	mDeathAnimation = new AnimatedTexture("stanley_death.png", 0, 0, 96, 96, 4, 2.5f, AnimatedTexture::HORIZONTAL);
 	mDeathAnimation->Parent(this);
 	mDeathAnimation->Position(Vec2_Zero);
 	mDeathAnimation->SetWrapMode(AnimatedTexture::ONCE);
@@ -157,6 +157,10 @@ void Player::Update() {
 	// Bullets
 	for (int i = 0; i < MAX_SPRAYS; ++i) {
 		mSprays[i]->Update();
+	}
+
+	if (mInput->KeyPressed(SDL_SCANCODE_D)) {
+		mAnimating = !mAnimating;
 	}
 
 }

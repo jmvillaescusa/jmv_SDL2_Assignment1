@@ -10,7 +10,9 @@ private:
 	AudioManager* mAudio;
 	Level* mLevel;
 
-	Texture* mPlatform;
+	UserInterface* mUI;
+
+	Platform* mPlatform;
 	Texture* mTree;
 	Texture* mVines;
 

@@ -19,7 +19,7 @@ void Level::HandleStartLevels() {
 void Level::HandleCollisions() {
 	if (!mPlayerHit) {
 		if (mPlayer->WasHit()) {
-			
+			mUI->SetLives(mPlayer->Lives());
 
 			mPlayerHit = true;
 			mRespawnTimer = 0.0f;
@@ -64,15 +64,14 @@ void Level::StartLevel() {
 	mLevelStarted = true;
 }
 
-Level::Level(int level, Player* player) {
+Level::Level(int level, UserInterface* UI, Player* player) {
 	mTimer = Timer::Instance();
+	mUI = UI;
 
 	mLevel = level;
 	mLevelStarted = false;
 
 	mLevelTimer = 0.0f;
-
-	// UI
 
 	mPlayer = player;
 	mPlayerHit = false;
@@ -94,7 +93,7 @@ Level::Level(int level, Player* player) {
 }
 Level::~Level() {
 	mTimer = nullptr;
-
+	mUI = nullptr;
 	mPlayer = nullptr;
 
 	delete mGameOverLabel;

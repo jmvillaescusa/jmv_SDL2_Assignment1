@@ -6,14 +6,17 @@ void PlayScreen::StartNextLevel() {
 	mLevelStarted = true;
 	
 	delete mLevel;
-	mLevel = new Level(mCurrentLevel, mPlayer);
+	mLevel = new Level(mCurrentLevel, mUI, mPlayer);
 }
 
 PlayScreen::PlayScreen() {
 	mTimer = Timer::Instance();
 	mAudio = AudioManager::Instance();
 
-	mPlatform = new Texture("platform.png", 0, 0, 1024, 288);
+	mUI = new UserInterface();
+	mUI->Parent(this);
+
+	mPlatform = new Platform();
 	mPlatform->Parent(this);
 	mPlatform->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT - 144.0f);
 
@@ -23,7 +26,7 @@ PlayScreen::PlayScreen() {
 
 	mVines = new Texture("vines.png", 0, 0, 496, 320);
 	mVines->Parent(this);
-	mVines->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.25f);
+	mVines->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.26f);
 
 	mLevel = nullptr;
 	mLevelStartDelay = 1.0f;
@@ -39,6 +42,9 @@ PlayScreen::~PlayScreen() {
 
 	delete mLevel;
 	mLevel = nullptr;
+
+	delete mUI;
+	mUI = nullptr;
 
 	delete mPlatform;
 	mPlatform = nullptr;
@@ -57,6 +63,11 @@ void PlayScreen::StartNewGame() {
 	mPlayer->Parent(this);
 	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.8f);
 	mPlayer->Active(true);
+
+	mUI->SetHighScore(30000);
+	mUI->SetLives(mPlayer->Lives());
+	mUI->SetPlayerScore(mPlayer->Score());
+	
 
 	mGameStarted = false;
 	mLevelStarted = false;
@@ -84,10 +95,11 @@ void PlayScreen::Update() {
 			}
 		}
 		if (mCurrentLevel > 0) {
-
+			mUI->Update();
 		}
 
 		mPlayer->Update();
+		mUI->SetPlayerScore(mPlayer->Score());
 	}
 	else {
 		mGameStarted = true;
@@ -109,4 +121,6 @@ void PlayScreen::Render() {
 
 		mPlayer->Render();
 	}
+
+	mUI->Render();
 }

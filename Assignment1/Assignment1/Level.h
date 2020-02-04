@@ -1,6 +1,9 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
+#include "UserInterface.h"
 #include "Player.h"
+
+#include "Platform.h"
 
 class Level : public GameEntity {
 public:
@@ -8,6 +11,7 @@ public:
 
 private:
 	Timer* mTimer;
+	UserInterface* mUI;
 
 	int mLevel;
 	bool mLevelStarted;
@@ -40,7 +44,7 @@ private:
 	void HandleEnemyDiving();
 
 public:
-	Level(int stage, Player* player);
+	Level(int stage, UserInterface * UI, Player* player);
 	~Level();
 
 	LevelStates State();
