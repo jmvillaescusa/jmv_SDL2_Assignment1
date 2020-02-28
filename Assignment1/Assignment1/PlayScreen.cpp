@@ -12,7 +12,7 @@ void PlayScreen::StartNextLevel() {
 PlayScreen::PlayScreen() {
 	mTimer = Timer::Instance();
 	mAudio = AudioManager::Instance();
-	mUI = UserInterface::Instance();
+	//mUI = UserInterface::Instance();
 
 	mPlatform = new Platform();
 	mPlatform->Parent(this);
@@ -41,7 +41,7 @@ PlayScreen::PlayScreen() {
 PlayScreen::~PlayScreen() {
 	mTimer = nullptr;
 	mAudio = nullptr;
-	mUI = nullptr;
+	//mUI = nullptr;
 
 	delete mLevel;
 	mLevel = nullptr;
@@ -64,9 +64,9 @@ void PlayScreen::StartNewGame() {
 	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.8f);
 	mPlayer->Active(true);
 
-	mUI->SetHighScore(30000);
-	mUI->SetLives(mPlayer->Lives());
-	mUI->SetPlayerScore(mPlayer->Score());
+	//mUI->SetHighScore(30000);
+	//mUI->SetLives(mPlayer->Lives());
+	//mUI->SetPlayerScore(mPlayer->Score());
 
 	mGameStarted = true;
 	mLevelStarted = false;
@@ -94,11 +94,11 @@ void PlayScreen::Update() {
 			}
 		}
 		if (mCurrentLevel > 0) {
-			mUI->Update();
+			//mUI->Update();
 		}
 
 		mPlayer->Update();
-		mUI->SetPlayerScore(mPlayer->Score());
+		//mUI->SetPlayerScore(mPlayer->Score());
 	}
 	else {
 		mGameStarted = true;
@@ -121,5 +121,5 @@ void PlayScreen::Render() {
 		mPlayer->Render();
 	}
 
-	mUI->Render();
+	//mUI->Render();
 }

@@ -9,7 +9,7 @@ private:
 	Timer* mTimer;
 	AudioManager* mAudio;
 	Level* mLevel;
-	UserInterface* mUI;
+	//UserInterface* mUI;
 
 	Platform* mPlatform;
 	Texture* mTree;

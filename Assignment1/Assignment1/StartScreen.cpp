@@ -4,7 +4,7 @@ StartScreen::StartScreen() {
 	mTimer = Timer::Instance();
 	mInputManager = InputManager::Instance();
 	mAudioManager = AudioManager::Instance();
-	mUI = UserInterface::Instance();
+	//mUI = UserInterface::Instance();
 
 	// Top Bar Entities
 	/*mTopBar = new GameEntity(Graphics::SCREEN_WIDTH * 0.5f, 50);
@@ -93,7 +93,7 @@ StartScreen::~StartScreen() {
 	mTimer = nullptr;
 	mInputManager = nullptr;
 	mAudioManager = nullptr;
-	mUI = nullptr;
+	//mUI = nullptr;
 
 	// Logo Entities
 	delete mLogo;
@@ -129,7 +129,7 @@ void StartScreen::PlayTheme() {
 void StartScreen::Update() {
 	mDonkeyKong->Update();
 	if (!mAnimationDone) {
-		mUI->SetLabelVisible(true);
+		//mUI->SetLabelVisible(true);
 		mAnimationTimer += mTimer->DeltaTime();
 		mTitle->Position(Lerp(mAnimationStartPos, mAnimationEndPos, mAnimationTimer / mAnimationTotalTime));
 		if (mAnimationTimer >= mAnimationTotalTime) {
@@ -179,7 +179,7 @@ void StartScreen::ChangeSelectedMode(int change) {
 
 void StartScreen::Render() {
 	if (mAnimationDone) {
-		mUI->Render();
+		//mUI->Render();
 
 		mOnePlayerModeA->Render();
 		mOnePlayerModeB->Render();

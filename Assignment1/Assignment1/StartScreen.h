@@ -24,7 +24,7 @@ private:
 	Scoreboard* mPlayerOneScore;
 	Scoreboard* mPlayerTwoScore;
 	Scoreboard* mTopScore;*/
-	UserInterface* mUI;
+	//UserInterface* mUI;
 
 	// Logo Entities
 	GameEntity* mLogo;

@@ -10,7 +10,7 @@ public:
 
 private:
 	Timer* mTimer;
-	UserInterface* mUI;
+	//UserInterface* mUI;
 
 	int mLevel;
 	bool mLevelStarted;
