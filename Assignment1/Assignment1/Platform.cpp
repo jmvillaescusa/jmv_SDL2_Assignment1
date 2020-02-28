@@ -1,25 +1,39 @@
 #include "Platform.h"
-#include "BoxCollider.h"
-#include "PhysicsManager.h"
-
-bool Platform::IgnoreCollisions() {
-	return !Active();
-}
 
 Platform::Platform() {
-	mPlatform = new Texture("platform.png");
-	mPlatform->Parent(this);
-	mPlatform->Position(Vec2_Zero);
+	mPlatformBase = new Texture("platformBase.png");
+	mPlatformBase->Parent(this);
+	mPlatformBase->Position(Vector2(Vec2_Zero.x, Vec2_Zero.y + 16));
 
-	mId = PhysicsManager::Instance()->RegisterEntity(this, PhysicsManager::CollisionLayers::Friendly);
+	mPlatformOne = new Texture("platform1.png");
+	mPlatformOne->Parent(this);
+	mPlatformOne->Position(Vector2(Vec2_Zero.x, -64));
+
+	mPlatformTwo = new Texture("platform2.png");
+	mPlatformTwo->Parent(mPlatformOne);
+	mPlatformTwo->Position(Vector2(Vec2_Zero.x, -64));
+
+	mPlatformThree = new Texture("platform3.png");
+	mPlatformThree->Parent(mPlatformTwo);
+	mPlatformThree->Position(Vector2(Vec2_Zero.x, -64));
 }
 Platform::~Platform() {
-	delete mPlatform;
-	mPlatform = nullptr;
+	delete mPlatformBase;
+	mPlatformBase = nullptr;
+
+	delete mPlatformOne;
+	mPlatformOne = nullptr;
+
+	delete mPlatformTwo;
+	mPlatformTwo = nullptr;
+
+	delete mPlatformThree;
+	mPlatformThree = nullptr;
 }
 
 void Platform::Render() {
-	mPlatform->Render();
-
-	PhysEntity::Render();
+	mPlatformBase->Render();
+	mPlatformOne->Render();
+	mPlatformTwo->Render();
+	mPlatformThree->Render();
 }

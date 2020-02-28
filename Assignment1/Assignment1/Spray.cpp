@@ -1,10 +1,4 @@
 #include "Spray.h"
-#include "BoxCollider.h"
-#include "PhysicsManager.h"
-
-bool Spray::IgnoreCollisions() {
-	return !Active();
-}
 
 Spray::Spray(bool friendly) {
 	mTimer = Timer::Instance();
@@ -16,16 +10,6 @@ Spray::Spray(bool friendly) {
 	mSpeed = 500;
 
 	Reload();
-
-	// Collider
-	//AddCollider(new BoxCollider()));
-
-	if (friendly) {
-		PhysicsManager::Instance()->RegisterEntity(this, PhysicsManager::CollisionLayers::FriendlyProjectiles);
-	}
-	else {
-		PhysicsManager::Instance()->RegisterEntity(this, PhysicsManager::CollisionLayers::FriendlyProjectiles);
-	}
 }
 Spray::~Spray() {
 	mTimer = nullptr;
@@ -44,10 +28,6 @@ void Spray::Reload() {
 	Active(false);
 }
 
-void Spray::Hit(PhysEntity* other) {
-	Reload();
-}
-
 void Spray::Update() {
 	if (Active()) {
 
@@ -64,6 +44,5 @@ void Spray::Update() {
 void Spray::Render() {
 	if (Active()) {
 		mTexture->Render();
-		PhysEntity::Render();
 	}
 }

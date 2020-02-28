@@ -14,6 +14,7 @@ void ScreenManager::Release() {
 
 ScreenManager::ScreenManager() {
 	mInput = InputManager::Instance();
+
 	mStartScreen = new StartScreen();
 	mPlayScreen = new PlayScreen();
 

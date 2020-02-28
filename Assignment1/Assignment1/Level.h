@@ -2,7 +2,6 @@
 #define _LEVEL_H
 #include "UserInterface.h"
 #include "Player.h"
-
 #include "Platform.h"
 
 class Level : public GameEntity {
@@ -35,7 +34,6 @@ private:
 
 	void StartLevel();
 	void HandleStartLevels();
-	void HandleCollisions();
 	void HandlePlayerDeath();
 
 	//bool EnemyFlyingIn();
@@ -44,7 +42,7 @@ private:
 	void HandleEnemyDiving();
 
 public:
-	Level(int stage, UserInterface * UI, Player* player);
+	Level(int stage, Player* player);
 	~Level();
 
 	LevelStates State();

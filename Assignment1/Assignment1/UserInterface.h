@@ -2,12 +2,12 @@
 #define _USERINTERFACE_H
 #include "Timer.h"
 #include "Scoreboard.h"
-#include "AudioManager.h"
 
 class UserInterface : public GameEntity {
 private:
+	static UserInterface* sInstance;
+
 	Timer* mTimer;
-	AudioManager* mAudio;
 
 	GameEntity* mTopBar;
 
@@ -29,9 +29,14 @@ public:
 	UserInterface();
 	~UserInterface();
 
+	static UserInterface* Instance();
+	static void Release();
+
 	void SetHighScore(int score);
 	void SetPlayerScore(int score);
 	void SetLives(int ships);
+
+	void SetLabelVisible(bool b) { mPlayerOneLabelVisible = b; }
 
 	void Update();
 	void Render();

@@ -1,8 +1,19 @@
 #include "UserInterface.h"
 
+UserInterface* UserInterface::sInstance = nullptr;
+UserInterface* UserInterface::Instance() {
+	if (sInstance == nullptr) {
+		sInstance = new UserInterface();
+	}
+	return sInstance;
+}
+void UserInterface::Release() {
+	delete sInstance;
+	sInstance = nullptr;
+}
+
 UserInterface::UserInterface() {
 	mTimer = Timer::Instance();
-	mAudio = AudioManager::Instance();
 
 	mTopBar = new GameEntity(Graphics::SCREEN_WIDTH * 0.5f, 50);
 	mTopBar->Parent(this);
@@ -26,10 +37,14 @@ UserInterface::UserInterface() {
 	mBlinkTimer = 0.0f;
 	mBlinkInterval = 0.5f;
 	mPlayerOneLabelVisible = true;
+
+	mLives = nullptr;
+	mLivesLabel = nullptr;
+	mTotalLives = 0;
+
 }
 UserInterface::~UserInterface() {
 	mTimer = nullptr;
-	mAudio = nullptr;
 
 	delete mTopBar;
 	mTopBar = nullptr;

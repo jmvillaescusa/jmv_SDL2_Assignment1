@@ -16,18 +16,6 @@ void Level::HandleStartLevels() {
 	}
 }
 
-void Level::HandleCollisions() {
-	if (!mPlayerHit) {
-		if (mPlayer->WasHit()) {
-			mUI->SetLives(mPlayer->Lives());
-
-			mPlayerHit = true;
-			mRespawnTimer = 0.0f;
-			mPlayer->Active(false);
-		}
-	}
-}
-
 void Level::HandlePlayerDeath() {
 	if (!mPlayer->IsAnimating()) {
 		if (mPlayer->Lives() > 0) {
@@ -64,9 +52,9 @@ void Level::StartLevel() {
 	mLevelStarted = true;
 }
 
-Level::Level(int level, UserInterface* UI, Player* player) {
+Level::Level(int level, Player* player) {
 	mTimer = Timer::Instance();
-	mUI = UI;
+	mUI = UserInterface::Instance();
 
 	mLevel = level;
 	mLevelStarted = false;
@@ -93,8 +81,8 @@ Level::Level(int level, UserInterface* UI, Player* player) {
 }
 Level::~Level() {
 	mTimer = nullptr;
-	mUI = nullptr;
 	mPlayer = nullptr;
+	mUI = nullptr;
 
 	delete mGameOverLabel;
 	mGameOverLabel = nullptr;
@@ -116,8 +104,6 @@ void Level::Update() {
 		/*for (auto e : mEnemies) {
 			e->Update();
 		}*/
-
-		HandleCollisions();
 
 		if (mPlayerHit) {
 			HandlePlayerDeath();

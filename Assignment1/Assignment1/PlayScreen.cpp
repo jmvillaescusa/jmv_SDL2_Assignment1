@@ -6,19 +6,17 @@ void PlayScreen::StartNextLevel() {
 	mLevelStarted = true;
 	
 	delete mLevel;
-	mLevel = new Level(mCurrentLevel, mUI, mPlayer);
+	mLevel = new Level(mCurrentLevel, mPlayer);
 }
 
 PlayScreen::PlayScreen() {
 	mTimer = Timer::Instance();
 	mAudio = AudioManager::Instance();
-
-	mUI = new UserInterface();
-	mUI->Parent(this);
+	mUI = UserInterface::Instance();
 
 	mPlatform = new Platform();
 	mPlatform->Parent(this);
-	mPlatform->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT - 144.0f);
+	mPlatform->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT - 64.0f);
 
 	mTree = new Texture("tree.png", 0, 0, 1024, 448);
 	mTree->Parent(this);
@@ -34,17 +32,19 @@ PlayScreen::PlayScreen() {
 
 	mPlayer = nullptr;
 
+	mCurrentLevel = 0;
+	mLevelStartTimer = 0;
+	mGameStarted = false;
+
 	// Enemy::CreatePaths();
 }
 PlayScreen::~PlayScreen() {
 	mTimer = nullptr;
 	mAudio = nullptr;
+	mUI = nullptr;
 
 	delete mLevel;
 	mLevel = nullptr;
-
-	delete mUI;
-	mUI = nullptr;
 
 	delete mPlatform;
 	mPlatform = nullptr;
@@ -67,9 +67,8 @@ void PlayScreen::StartNewGame() {
 	mUI->SetHighScore(30000);
 	mUI->SetLives(mPlayer->Lives());
 	mUI->SetPlayerScore(mPlayer->Score());
-	
 
-	mGameStarted = false;
+	mGameStarted = true;
 	mLevelStarted = false;
 	mLevelStartTimer = 0.0f;
 	mCurrentLevel = 0;

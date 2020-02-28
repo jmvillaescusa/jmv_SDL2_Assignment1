@@ -31,10 +31,10 @@ namespace SDLFramework {
 		Vector2 Scale(Space space = WORLD);
 
 		void Active(bool active);
-		bool Active();
+		bool Active() const;
 
 		void Parent(GameEntity* parent);
-		GameEntity* Parent();
+		GameEntity* Parent() const;
 
 		void Translate(Vector2 vec, Space space = LOCAL);
 		void Rotate(float amount);

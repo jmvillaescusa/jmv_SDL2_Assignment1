@@ -1,22 +1,20 @@
 #ifndef _PLATFORM_H
 #define _PLATFORM_H
-#include "PhysEntity.h"
+#include "Texture.h"
 
 using namespace SDLFramework;
 
-class Platform : public PhysEntity {
+class Platform : public GameEntity {
 private: 
-	Texture* mPlatform;
-
-	bool IgnoreCollisions() override;
+	Texture* mPlatformBase;
+	Texture* mPlatformOne;
+	Texture* mPlatformTwo;
+	Texture* mPlatformThree;
 
 public:
 	Platform();
 	~Platform();
 
 	void Render();
-
-
 };
 #endif // !_PLATFORM_H
-

@@ -1,6 +1,4 @@
 #include "Player.h"
-#include "BoxCollider.h"
-#include "PhysicsManager.h"
 
 void Player::HandleMovement() {
 	if (mInput->KeyDown(SDL_SCANCODE_RIGHT)) {
@@ -77,9 +75,7 @@ Player::Player() {
 	}
 
 	// Collider
-	//AddCollider(new BoxCollider(Vector2()))
-
-	mId = PhysicsManager::Instance()->RegisterEntity(this, PhysicsManager::CollisionLayers::Friendly);
+	
 
 }
 Player::~Player() {
@@ -120,17 +116,6 @@ int Player::Lives() {
 
 void Player::AddScore(int change) {
 	mScore += change;
-}
-
-bool Player::IgnoreCollisions() {
-	return !mVisible || mAnimating;
-}
-
-void Player::Hit(PhysEntity* other) {
-	mLives -= 1;
-	mAnimating = true;
-	// Play sfx
-	mWasHit = true;
 }
 
 bool Player::WasHit() {
@@ -186,6 +171,4 @@ void Player::Render() {
 	for (int i = 0; i < MAX_SPRAYS; ++i) {
 		mSprays[i]->Render();
 	}
-
-	PhysEntity::Render();
 }

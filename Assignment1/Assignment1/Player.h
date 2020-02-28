@@ -1,6 +1,5 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
-#include "PhysEntity.h"
 #include "AnimatedTexture.h"
 #include "AudioManager.h"
 #include "InputManager.h"
@@ -8,7 +7,7 @@
 
 using namespace SDLFramework;
 
-class Player : public PhysEntity {
+class Player : public GameEntity {
 private:
 	Timer* mTimer;
 	InputManager* mInput;
@@ -48,10 +47,6 @@ public:
 	int Lives();
 
 	void AddScore(int change);
-
-	// Inherited from PhysEntity
-	bool IgnoreCollisions() override;
-	void Hit(PhysEntity* other) override;
 
 	bool WasHit();
 

@@ -9,7 +9,6 @@ private:
 	Timer* mTimer;
 	AudioManager* mAudio;
 	Level* mLevel;
-
 	UserInterface* mUI;
 
 	Platform* mPlatform;
