@@ -15,7 +15,7 @@ private:
 	float mSpeed;
 
 public:
-	Spray(bool friendly);
+	Spray();
 	~Spray();
 
 	void Fire(Vector2 pos);

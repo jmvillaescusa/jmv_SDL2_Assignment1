@@ -26,6 +26,7 @@ namespace SDLFramework {
 
 		Vector2 ScaledDimensions();
 
+		SDL_Rect GetSrcRect() { return mSourceRect; }
 		Texture(std::string text, std::string fontPath, int size, SDL_Color color, bool managed = false);
 
 		void Render() override;

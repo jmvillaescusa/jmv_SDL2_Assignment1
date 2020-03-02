@@ -1,6 +1,7 @@
 #ifndef _GAMEENTITY_H
 #define _GAMEENTITY_H
 #include "MathHelper.h"
+#include "Collision.h"
 
 namespace SDLFramework {
 	class GameEntity {
@@ -14,6 +15,10 @@ namespace SDLFramework {
 
 		bool mActive;
 		GameEntity* mParent;
+
+	protected:
+		Collision mCollision;
+		
 
 	public:
 		GameEntity(float x = 0.0f, float y = 0.0f);
@@ -38,6 +43,8 @@ namespace SDLFramework {
 
 		void Translate(Vector2 vec, Space space = LOCAL);
 		void Rotate(float amount);
+
+		Collision GetCollision() { return mCollision; }
 
 		virtual void Update() {};
 		virtual void Render() {};

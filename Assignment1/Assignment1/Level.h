@@ -45,6 +45,8 @@ public:
 	Level(int stage, Player* player);
 	~Level();
 
+	bool CollisionCheck(GameEntity*, GameEntity*);
+
 	LevelStates State();
 
 	void Update();

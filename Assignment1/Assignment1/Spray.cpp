@@ -1,6 +1,6 @@
 #include "Spray.h"
 
-Spray::Spray(bool friendly) {
+Spray::Spray() {
 	mTimer = Timer::Instance();
 
 	mTexture = new AnimatedTexture("spray.png", 0, 0, 56, 64, 7, 1.5f, AnimatedTexture::HORIZONTAL);

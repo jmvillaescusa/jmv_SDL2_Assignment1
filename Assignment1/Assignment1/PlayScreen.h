@@ -11,7 +11,7 @@ private:
 	Level* mLevel;
 	//UserInterface* mUI;
 
-	Platform* mPlatform;
+	Platform* mPlatform[4];
 	Texture* mTree;
 	Texture* mVines;
 

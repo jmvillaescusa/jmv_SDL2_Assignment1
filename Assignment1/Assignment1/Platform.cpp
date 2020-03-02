@@ -1,39 +1,40 @@
 #include "Platform.h"
 
-Platform::Platform() {
-	mPlatformBase = new Texture("platformBase.png");
-	mPlatformBase->Parent(this);
-	mPlatformBase->Position(Vector2(Vec2_Zero.x, Vec2_Zero.y + 16));
+Platform::Platform(int i) {
+	if (i == 3) {
+		mPlatform[i] = new Texture("platform3.png");
+		mPlatform[i]->Parent(mPlatform[i - 1]);
+		mPlatform[i]->Parent(this);
+		mPlatform[i]->Position(Vector2(Vec2_Zero.x, -64));
+	}
+	else if (i == 2) {
+		mPlatform[i] = new Texture("platform2.png");
+		mPlatform[i]->Parent(mPlatform[i - 1]);
+		mPlatform[i]->Parent(this);
+		mPlatform[i]->Position(Vector2(Vec2_Zero.x, -64));
+	}
+	else if (i == 1) {
+		mPlatform[i] = new Texture("platform1.png");
+		mPlatform[i]->Parent(this);
+		mPlatform[i]->Position(Vector2(Vec2_Zero.x, -64));
+	}
+	else if (i == 0) {
+		mPlatform[i]->Parent(this);
+		mPlatform[i]->Position(Vector2(Vec2_Zero.x, Vec2_Zero.y + 16));
+	}
 
-	mPlatformOne = new Texture("platform1.png");
-	mPlatformOne->Parent(this);
-	mPlatformOne->Position(Vector2(Vec2_Zero.x, -64));
-
-	mPlatformTwo = new Texture("platform2.png");
-	mPlatformTwo->Parent(mPlatformOne);
-	mPlatformTwo->Position(Vector2(Vec2_Zero.x, -64));
-
-	mPlatformThree = new Texture("platform3.png");
-	mPlatformThree->Parent(mPlatformTwo);
-	mPlatformThree->Position(Vector2(Vec2_Zero.x, -64));
+	mCollision[i].x = mPlatform[i]->Position().x;
+	mCollision[i].y = mPlatform[i]->Position().y;
+	mCollision[i].w = mPlatform[i]->GetSrcRect().w;
+	mCollision[i].h = mPlatform[i]->GetSrcRect().h;
 }
 Platform::~Platform() {
-	delete mPlatformBase;
-	mPlatformBase = nullptr;
-
-	delete mPlatformOne;
-	mPlatformOne = nullptr;
-
-	delete mPlatformTwo;
-	mPlatformTwo = nullptr;
-
-	delete mPlatformThree;
-	mPlatformThree = nullptr;
+	for (int i = 0; i < 4; i++) {
+		delete mPlatform[i];
+		mPlatform[i] = nullptr;
+	}
 }
 
-void Platform::Render() {
-	mPlatformBase->Render();
-	mPlatformOne->Render();
-	mPlatformTwo->Render();
-	mPlatformThree->Render();
+void Platform::Render(int i) {
+		mPlatform[i]->Render();
 }

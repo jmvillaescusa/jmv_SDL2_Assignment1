@@ -52,6 +52,15 @@ void Level::StartLevel() {
 	mLevelStarted = true;
 }
 
+bool Level::CollisionCheck(GameEntity* objA, GameEntity* objB) {
+	if (objA->GetCollision().x > objB->GetCollision().x + 180 && objA->GetCollision().x < objB->GetCollision().x + 850) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 Level::Level(int level, Player* player) {
 	mTimer = Timer::Instance();
 	//mUI = UserInterface::Instance();

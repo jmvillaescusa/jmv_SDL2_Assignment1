@@ -28,7 +28,7 @@ private:
 	AnimatedTexture* mDeathAnimation;
 	
 	float mMoveSpeed;
-	Vector2 mMoveBounds;
+	//Vector2 mMoveBounds;
 
 	static const int MAX_SPRAYS = 3;
 	Spray* mSprays[MAX_SPRAYS];

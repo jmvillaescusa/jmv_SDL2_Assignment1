@@ -14,9 +14,11 @@ PlayScreen::PlayScreen() {
 	mAudio = AudioManager::Instance();
 	//mUI = UserInterface::Instance();
 
-	mPlatform = new Platform();
-	mPlatform->Parent(this);
-	mPlatform->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT - 64.0f);
+	for (int i = 0; i < 4; i++) {
+		mPlatform[i] = new Platform(i);
+		mPlatform[i]->Parent(this);
+		mPlatform[i]->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.929f);
+	}
 
 	mTree = new Texture("tree.png", 0, 0, 1024, 448);
 	mTree->Parent(this);
@@ -46,8 +48,10 @@ PlayScreen::~PlayScreen() {
 	delete mLevel;
 	mLevel = nullptr;
 
-	delete mPlatform;
-	mPlatform = nullptr;
+	for (int i = 0; i < 4; i++) {
+		delete mPlatform[i];
+		mPlatform[i] = nullptr;
+	}
 	delete mTree;
 	mTree = nullptr;
 	delete mVines;
@@ -99,6 +103,12 @@ void PlayScreen::Update() {
 
 		mPlayer->Update();
 		//mUI->SetPlayerScore(mPlayer->Score());
+		std::cout << mPlatform[0]->GetCollision().y << std::endl;
+
+		if (mLevel->CollisionCheck(mPlayer, mPlatform[1])) {
+			//std::cout << "test";
+			std::cout << "Test" << std::endl;
+		}
 	}
 	else {
 		mGameStarted = true;
@@ -109,7 +119,9 @@ void PlayScreen::Render() {
 		
 	}
 	
-	mPlatform->Render();
+	for (int i = 0; i < 4; i++) {
+		mPlatform[i]->Render(i);
+	}
 	mTree->Render();
 	mVines->Render();
 

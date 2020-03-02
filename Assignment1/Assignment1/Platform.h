@@ -6,15 +6,13 @@ using namespace SDLFramework;
 
 class Platform : public GameEntity {
 private: 
-	Texture* mPlatformBase;
-	Texture* mPlatformOne;
-	Texture* mPlatformTwo;
-	Texture* mPlatformThree;
+	Texture* mPlatform[4];
+	Collision mCollision[4];
 
 public:
-	Platform();
+	Platform(int);
 	~Platform();
 
-	void Render();
+	void Render(int);
 };
 #endif // !_PLATFORM_H
