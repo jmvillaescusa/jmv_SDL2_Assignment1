@@ -16,8 +16,6 @@ PlayScreen::PlayScreen() {
 
 	for (int i = 0; i < 4; i++) {
 		mPlatform[i] = new Platform(i);
-		mPlatform[i]->Parent(this);
-		mPlatform[i]->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.929f);
 	}
 
 	mTree = new Texture("tree.png", 0, 0, 1024, 448);
@@ -52,6 +50,7 @@ PlayScreen::~PlayScreen() {
 		delete mPlatform[i];
 		mPlatform[i] = nullptr;
 	}
+
 	delete mTree;
 	mTree = nullptr;
 	delete mVines;
@@ -64,8 +63,7 @@ PlayScreen::~PlayScreen() {
 void PlayScreen::StartNewGame() {
 	delete mPlayer;
 	mPlayer = new Player();
-	mPlayer->Parent(this);
-	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.8f);
+	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f);
 	mPlayer->Active(true);
 
 	//mUI->SetHighScore(30000);
@@ -81,6 +79,28 @@ void PlayScreen::StartNewGame() {
 
 bool PlayScreen::GameOver() {
 	return !mLevelStarted ? false : (mLevel->State() == Level::GAMEOVER);
+}
+
+void PlayScreen::PlatformCollisions() {
+	if (mLevel->CollisionCheck(mPlayer, mPlatform[1])) {
+		//std::cout << "test";
+		std::cout << "Test 1" << std::endl;
+		mPlayer->SetAirborne(false);
+	}
+	else if (mLevel->CollisionCheck(mPlayer, mPlatform[2])) {
+		//std::cout << "test";
+		std::cout << "Test 2" << std::endl;
+		mPlayer->SetAirborne(false);
+	}
+	else if (mLevel->CollisionCheck(mPlayer, mPlatform[3])) {
+		//std::cout << "test";
+		std::cout << "Test 3" << std::endl;
+		mPlayer->SetAirborne(false);
+	}
+	else {
+		std::cout << "Test" << std::endl;
+		mPlayer->SetAirborne(true);
+	}
 }
 
 void PlayScreen::Update() {
@@ -103,12 +123,9 @@ void PlayScreen::Update() {
 
 		mPlayer->Update();
 		//mUI->SetPlayerScore(mPlayer->Score());
-		std::cout << mPlatform[0]->GetCollision().y << std::endl;
+		std::cout << mPlayer->Position().y << std::endl;
 
-		if (mLevel->CollisionCheck(mPlayer, mPlatform[1])) {
-			//std::cout << "test";
-			std::cout << "Test" << std::endl;
-		}
+		PlatformCollisions();
 	}
 	else {
 		mGameStarted = true;

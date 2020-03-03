@@ -2,12 +2,14 @@
 
 void Player::HandleMovement() {
 	if (mInput->KeyDown(SDL_SCANCODE_RIGHT)) {
+		// Move Right
 		mMovingRight = true;
 		mIsMoving = true;
 		Translate(Vec2_Right * mMoveSpeed * mTimer->DeltaTime(), WORLD);
 		mPlayerWalkRight->Update();
 	}
 	else if (mInput->KeyDown(SDL_SCANCODE_LEFT)) {
+		// Move Left
 		mMovingRight = false;
 		mIsMoving = true;
 		Translate(-Vec2_Right * mMoveSpeed * mTimer->DeltaTime(), WORLD);
@@ -16,13 +18,13 @@ void Player::HandleMovement() {
 
 	if (mInput->KeyDown(SDL_SCANCODE_UP)) {
 		// Intended for jump
-		mIsMoving = true;
-		Translate(-Vec2_Up * mMoveSpeed * mTimer->DeltaTime(), WORLD);
+
 	}
-	else if (mInput->KeyDown(SDL_SCANCODE_DOWN)) {
-		// Intended for jump
+	else if (mInput->KeyDown(SDL_SCANCODE_DOWN) && mPlayer->Position().y < 690.0f) {
+		// Fall through platforms
 		mIsMoving = true;
-		Translate(Vec2_Up * mMoveSpeed * mTimer->DeltaTime(), WORLD);
+		mAirborne = true;
+		Translate(-Vec2_Up * 1 * mTimer->DeltaTime(), WORLD);
 	}
 
 	if (mInput->KeyRelease(SDL_SCANCODE_RIGHT) || mInput->KeyRelease(SDL_SCANCODE_LEFT)) {
@@ -32,15 +34,21 @@ void Player::HandleMovement() {
 		mIsMoving = false;
 	}
 
+	// Gravity
+	if (mAirborne) {
+		Translate(Vec2_Up * mMoveSpeed * mTimer->DeltaTime(), WORLD);
+	}
+
+
 	Vector2 pos = Position(LOCAL);
 	mCollision.x = Position().x;
-	mCollision.y = Position().y;
-	/*if (pos.x < mMoveBounds.x) {
+	mCollision.y = Position().y + (mPlayer->GetHeight() / 2);
+	if (pos.x < mMoveBounds.x) {
 		pos.x = mMoveBounds.x;
 	}
 	else if (pos.x > mMoveBounds.y) {
 		pos.x = mMoveBounds.y;
-	}*/
+	}
 
 	Position(pos);
 }
@@ -65,6 +73,8 @@ Player::Player() {
 	mAnimating = false;
 	mWasHit = false;
 
+	mAirborne = true;
+
 	mScore = 0;
 	mLives = 3;
 
@@ -73,20 +83,20 @@ Player::Player() {
 	mPlayer->Position(Vec2_Zero);
 
 	mCollision.x = Position().x;
-	mCollision.y = Position().y;
-	mCollision.w = mPlayer->GetSrcRect().w;
-	mCollision.h = mPlayer->GetSrcRect().h;
+	mCollision.y = Position().y + (mPlayer->GetHeight() / 2);
+	mCollision.w = mPlayer->GetWidth();
+	mCollision.h = mPlayer->GetHeight();
 
 	mPlayerWalkLeft = new AnimatedTexture("stanley_walkleft.png", 0, 0, 77, 90, 4, 0.5f, AnimatedTexture::HORIZONTAL);
-	mPlayerWalkLeft->Parent(this);
+	mPlayerWalkLeft->Parent(mPlayer);
 	mPlayerWalkRight = new AnimatedTexture("stanley_walkright.png", 0, 0, 77, 90, 4, 0.5f, AnimatedTexture::HORIZONTAL);
-	mPlayerWalkRight->Parent(this);
+	mPlayerWalkRight->Parent(mPlayer);
 
 	mMoveSpeed = 300.0f;
-	//mMoveBounds = Vector2(190.0f, 835.0f);
+	mMoveBounds = Vector2(190.0f, 835.0f);
 
 	mDeathAnimation = new AnimatedTexture("stanley_death.png", 0, 0, 96, 96, 4, 2.5f, AnimatedTexture::HORIZONTAL);
-	mDeathAnimation->Parent(this);
+	mDeathAnimation->Parent(mPlayer);
 	mDeathAnimation->Position(Vec2_Zero);
 	mDeathAnimation->SetWrapMode(AnimatedTexture::ONCE);
 
@@ -94,10 +104,6 @@ Player::Player() {
 	for (int i = 0; i < MAX_SPRAYS; ++i) {
 		mSprays[i] = new Spray();
 	}
-
-	// Collider
-	
-
 }
 Player::~Player() {
 	mTimer = nullptr;

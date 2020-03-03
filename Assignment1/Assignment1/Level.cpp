@@ -53,7 +53,10 @@ void Level::StartLevel() {
 }
 
 bool Level::CollisionCheck(GameEntity* objA, GameEntity* objB) {
-	if (objA->GetCollision().x > objB->GetCollision().x + 180 && objA->GetCollision().x < objB->GetCollision().x + 850) {
+	if (objA->GetCollision().x  > objB->GetCollision().x - (objB->GetCollision().w / 2) && 
+		objA->GetCollision().x < objB->GetCollision().x + objB->GetCollision().w - (objB->GetCollision().w / 2) && 
+		objA->GetCollision().y  > objB->GetCollision().y - (objB->GetCollision().h / 2) && 
+		objA->GetCollision().y < objB->GetCollision().y + objB->GetCollision().h - (objB->GetCollision().h / 2)) {
 		return true;
 	}
 	else {

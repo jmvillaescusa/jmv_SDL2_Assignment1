@@ -35,6 +35,8 @@ public:
 
 	bool GameOver();
 
+	void PlatformCollisions();
+
 	void Update();
 	void Render();
 };

@@ -10,9 +10,8 @@ namespace SDLFramework {
 		SDL_Texture* mTex;
 		Graphics* mGraphics;
 
-		bool mClipped;
-		
 		SDL_Rect mDestinationRect;
+		bool mClipped;
 
 	protected:
 		int mWidth;
@@ -26,7 +25,8 @@ namespace SDLFramework {
 
 		Vector2 ScaledDimensions();
 
-		SDL_Rect GetSrcRect() { return mSourceRect; }
+		int GetWidth() { return mWidth; }
+		int GetHeight() { return mHeight; }
 		Texture(std::string text, std::string fontPath, int size, SDL_Color color, bool managed = false);
 
 		void Render() override;

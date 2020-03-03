@@ -7,11 +7,12 @@ using namespace SDLFramework;
 class Platform : public GameEntity {
 private: 
 	Texture* mPlatform[4];
-	Collision mCollision[4];
 
 public:
 	Platform(int);
 	~Platform();
+
+	void CreateCollision(int);
 
 	void Render(int);
 };

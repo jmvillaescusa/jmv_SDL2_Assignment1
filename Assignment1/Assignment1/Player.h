@@ -18,6 +18,7 @@ private:
 	bool mWasHit;
 	bool mIsMoving;
 	bool mMovingRight;
+	bool mAirborne;
 
 	int mScore;
 	int mLives;
@@ -28,7 +29,7 @@ private:
 	AnimatedTexture* mDeathAnimation;
 	
 	float mMoveSpeed;
-	//Vector2 mMoveBounds;
+	Vector2 mMoveBounds;
 
 	static const int MAX_SPRAYS = 3;
 	Spray* mSprays[MAX_SPRAYS];
@@ -45,6 +46,9 @@ public:
 
 	int Score();
 	int Lives();
+
+	bool GetAirborne() { return mAirborne; }
+	void SetAirborne(bool a) { mAirborne = a; }
 
 	void AddScore(int change);
 
