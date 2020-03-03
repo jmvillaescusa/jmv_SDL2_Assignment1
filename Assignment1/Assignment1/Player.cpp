@@ -16,15 +16,15 @@ void Player::HandleMovement() {
 		mPlayerWalkLeft->Update();
 	}
 
-	if (mInput->KeyDown(SDL_SCANCODE_UP)) {
-		// Intended for jump
-
+	if (mInput->KeyPressed(SDL_SCANCODE_UP) && !mAirborne && mPlayer->Position().y > 571.0f) {
+		// Jumping
+		mIsMoving = true;
+		Translate(-Vec2_Up * 3750 * mTimer->DeltaTime(), WORLD);
 	}
 	else if (mInput->KeyDown(SDL_SCANCODE_DOWN) && mPlayer->Position().y < 690.0f) {
 		// Fall through platforms
 		mIsMoving = true;
 		mAirborne = true;
-		Translate(-Vec2_Up * 1 * mTimer->DeltaTime(), WORLD);
 	}
 
 	if (mInput->KeyRelease(SDL_SCANCODE_RIGHT) || mInput->KeyRelease(SDL_SCANCODE_LEFT)) {
@@ -36,7 +36,7 @@ void Player::HandleMovement() {
 
 	// Gravity
 	if (mAirborne) {
-		Translate(Vec2_Up * mMoveSpeed * mTimer->DeltaTime(), WORLD);
+		Translate(Vec2_Up * (mMoveSpeed + 300) * mTimer->DeltaTime(), WORLD);
 	}
 
 
