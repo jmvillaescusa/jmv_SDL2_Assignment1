@@ -21,6 +21,8 @@ public:
 	void Fire(Vector2 pos);
 	void Reload();
 
+	void CreateCollisions();
+
 	void Update();
 	void Render();
 };

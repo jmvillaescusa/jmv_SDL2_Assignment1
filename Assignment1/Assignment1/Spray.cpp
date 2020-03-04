@@ -7,6 +7,7 @@ Spray::Spray() {
 	mTexture->Parent(this);
 
 	mSpeed = 500;
+	CreateCollisions();
 
 	Reload();
 }
@@ -27,10 +28,19 @@ void Spray::Reload() {
 	Active(false);
 }
 
+void Spray::CreateCollisions() {
+	mCollision.x = mTexture->Position().x;
+	mCollision.y = mTexture->Position().y;
+	mCollision.w = (float)mTexture->GetWidth();
+	mCollision.h = (float)mTexture->GetHeight();
+}
+
 void Spray::Update() {
 	if (Active()) {
 
 		Translate(-Vec2_Up * mSpeed * mTimer->DeltaTime());
+		mCollision.x = Position().x;
+		mCollision.y = Position().y;
 
 		Vector2 pos = Position();
 		if (pos.y < -OFFSCREEN_BUFFER) {

@@ -14,6 +14,7 @@ private:
 	Platform* mPlatform[4];
 	Texture* mTree;
 	Texture* mVines;
+	Flower* mFlower[5];
 
 	float mLevelStartTimer;
 	float mLevelStartDelay;
@@ -36,6 +37,7 @@ public:
 	bool GameOver();
 
 	void PlatformCollisions();
+	void SprayCollision();
 
 	void Update();
 	void Render();

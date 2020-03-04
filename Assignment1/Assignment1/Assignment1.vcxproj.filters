@@ -96,6 +96,9 @@
     <ClInclude Include="UserInterface.h">
       <Filter>Header Files\DK3</Filter>
     </ClInclude>
+    <ClInclude Include="Flower.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -156,6 +159,9 @@
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
     <ClCompile Include="UserInterface.cpp">
+      <Filter>Source Files\DK3</Filter>
+    </ClCompile>
+    <ClCompile Include="Flower.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
   </ItemGroup>

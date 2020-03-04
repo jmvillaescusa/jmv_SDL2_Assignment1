@@ -19,6 +19,11 @@ PlayScreen::PlayScreen() {
 		mPlatform[i] = new Platform(i);
 	}
 
+	mFlower[0] = NULL;
+	for (int i = 0; i < 5; i++) {
+		mFlower[i] = new Flower(i);
+	}
+
 	mTree = new Texture("tree.png", 0, 0, 1024, 448);
 	mTree->Parent(this);
 	mTree->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f);
@@ -50,6 +55,11 @@ PlayScreen::~PlayScreen() {
 	for (int i = 0; i < 4; i++) {
 		delete mPlatform[i];
 		mPlatform[i] = nullptr;
+	}
+	
+	for (int i = 0; i < 5; i++) {
+		delete mFlower[i];
+		mFlower[i] = nullptr;
 	}
 
 	delete mTree;
@@ -90,6 +100,14 @@ void PlayScreen::PlatformCollisions() {
 	}
 }
 
+void PlayScreen::SprayCollision() {
+	for (int i = 0; i < 3; i++) {
+		if (mLevel->CollisionCheck(mPlayer->mSprays[i], mPlatform[3])) {
+			std::cout << "test" << std::endl;
+		}
+	}
+}
+
 void PlayScreen::Update() {
 	if (mGameStarted) {
 		if (!mLevelStarted) {
@@ -112,6 +130,7 @@ void PlayScreen::Update() {
 		mUI->SetPlayerScore(mPlayer->Score());
 
 		PlatformCollisions();
+		SprayCollision();
 	}
 	else {
 		mGameStarted = true;
@@ -124,6 +143,9 @@ void PlayScreen::Render() {
 	
 	for (int i = 0; i < 4; i++) {
 		mPlatform[i]->Render(i);
+	}
+	for (int i = 0; i < 5; i++) {
+		mFlower[i]->Render(i);
 	}
 	mTree->Render();
 	mVines->Render();

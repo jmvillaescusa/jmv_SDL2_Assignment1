@@ -3,6 +3,7 @@
 #include "UserInterface.h"
 #include "Player.h"
 #include "Platform.h"
+#include "Flower.h"
 
 class Level : public GameEntity {
 public:

@@ -29,7 +29,7 @@ Platform::~Platform() {
 
 void Platform::CreateCollision(int i) {
 	mCollision.x = mPlatform[i]->Position().x;
-	mCollision.y = mPlatform[i]->Position().y - (mPlatform[i]->GetHeight() / 2) + 5;
+	mCollision.y = mPlatform[i]->Position().y - (mPlatform[i]->GetHeight() / 2);
 	mCollision.w = (float)mPlatform[i]->GetWidth();
 	mCollision.h = 10.0f;
 }

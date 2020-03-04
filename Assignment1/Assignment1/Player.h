@@ -32,10 +32,12 @@ private:
 	Vector2 mMoveBounds;
 
 	static const int MAX_SPRAYS = 3;
-	Spray* mSprays[MAX_SPRAYS];
 
 	void HandleMovement();
 	void HandleFiring();
+
+public:
+	Spray* mSprays[MAX_SPRAYS];
 
 public:
 	Player();
@@ -49,6 +51,8 @@ public:
 
 	bool GetAirborne() { return mAirborne; }
 	void SetAirborne(bool a) { mAirborne = a; }
+
+	Spray* GetSpray() { return mSprays[0]; }
 
 	void AddScore(int change);
 
