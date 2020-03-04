@@ -12,8 +12,9 @@ void PlayScreen::StartNextLevel() {
 PlayScreen::PlayScreen() {
 	mTimer = Timer::Instance();
 	mAudio = AudioManager::Instance();
-	//mUI = UserInterface::Instance();
+	mUI = UserInterface::Instance();
 
+	mPlatform[0] = NULL;
 	for (int i = 0; i < 4; i++) {
 		mPlatform[i] = new Platform(i);
 	}
@@ -41,7 +42,7 @@ PlayScreen::PlayScreen() {
 PlayScreen::~PlayScreen() {
 	mTimer = nullptr;
 	mAudio = nullptr;
-	//mUI = nullptr;
+	mUI = nullptr;
 
 	delete mLevel;
 	mLevel = nullptr;
@@ -66,9 +67,8 @@ void PlayScreen::StartNewGame() {
 	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f);
 	mPlayer->Active(true);
 
-	//mUI->SetHighScore(30000);
-	//mUI->SetLives(mPlayer->Lives());
-	//mUI->SetPlayerScore(mPlayer->Score());
+	mUI->SetLives(mPlayer->Lives());
+	mUI->SetPlayerScore(mPlayer->Score());
 
 	mGameStarted = true;
 	mLevelStarted = false;
@@ -82,23 +82,10 @@ bool PlayScreen::GameOver() {
 }
 
 void PlayScreen::PlatformCollisions() {
-	if (mLevel->CollisionCheck(mPlayer, mPlatform[1])) {
-		//std::cout << "test";
-		std::cout << "Test 1" << std::endl;
-		mPlayer->SetAirborne(false);
-	}
-	else if (mLevel->CollisionCheck(mPlayer, mPlatform[2])) {
-		//std::cout << "test";
-		std::cout << "Test 2" << std::endl;
-		mPlayer->SetAirborne(false);
-	}
-	else if (mLevel->CollisionCheck(mPlayer, mPlatform[3])) {
-		//std::cout << "test";
-		std::cout << "Test 3" << std::endl;
+	if (mLevel->CollisionCheck(mPlayer, mPlatform[1]) || mLevel->CollisionCheck(mPlayer, mPlatform[2]) || mLevel->CollisionCheck(mPlayer, mPlatform[3])) {
 		mPlayer->SetAirborne(false);
 	}
 	else {
-		std::cout << "Test" << std::endl;
 		mPlayer->SetAirborne(true);
 	}
 }
@@ -118,12 +105,11 @@ void PlayScreen::Update() {
 			}
 		}
 		if (mCurrentLevel > 0) {
-			//mUI->Update();
+			mUI->Update();
 		}
 
 		mPlayer->Update();
-		//mUI->SetPlayerScore(mPlayer->Score());
-		std::cout << mPlayer->Position().y << std::endl;
+		mUI->SetPlayerScore(mPlayer->Score());
 
 		PlatformCollisions();
 	}
@@ -150,5 +136,5 @@ void PlayScreen::Render() {
 		mPlayer->Render();
 	}
 
-	//mUI->Render();
+	mUI->Render();
 }

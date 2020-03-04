@@ -66,7 +66,7 @@ bool Level::CollisionCheck(GameEntity* objA, GameEntity* objB) {
 
 Level::Level(int level, Player* player) {
 	mTimer = Timer::Instance();
-	//mUI = UserInterface::Instance();
+	mUI = UserInterface::Instance();
 
 	mLevel = level;
 	mLevelStarted = false;
@@ -94,7 +94,7 @@ Level::Level(int level, Player* player) {
 Level::~Level() {
 	mTimer = nullptr;
 	mPlayer = nullptr;
-	//mUI = nullptr;
+	mUI = nullptr;
 
 	delete mGameOverLabel;
 	mGameOverLabel = nullptr;

@@ -5,7 +5,6 @@ Spray::Spray() {
 
 	mTexture = new AnimatedTexture("spray.png", 0, 0, 56, 64, 7, 1.5f, AnimatedTexture::HORIZONTAL);
 	mTexture->Parent(this);
-	mTexture->Position(Vec2_Zero);
 
 	mSpeed = 500;
 

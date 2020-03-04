@@ -93,6 +93,9 @@
     <ClInclude Include="Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -149,13 +152,10 @@
     <ClCompile Include="Spray.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface.h">
-      <Filter>Header Files\DK3</Filter>
-    </ClCompile>
-    <ClCompile Include="UserInterface.cpp">
+    <ClCompile Include="Platform.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
+    <ClCompile Include="UserInterface.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
   </ItemGroup>

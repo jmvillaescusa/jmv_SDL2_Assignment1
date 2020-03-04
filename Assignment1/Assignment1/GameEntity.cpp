@@ -3,11 +3,11 @@
 namespace SDLFramework {
 
 	GameEntity::GameEntity(float x, float y)
-		: mPosition(x, y), mRotation(0.0f), mScale(Vec2_One), mActive(true), mParent(nullptr) {
+		: mPosition(x, y), mRotation(0.0f), mScale(Vec2_One), mActive(true), mParent(nullptr), mCollision() {
 	}
 
 	SDLFramework::GameEntity::GameEntity(const Vector2& position)
-		: mPosition(position), mRotation(0.0f), mScale(Vec2_One), mActive(true), mParent(nullptr) {
+		: mPosition(position), mRotation(0.0f), mScale(Vec2_One), mActive(true), mParent(nullptr), mCollision() {
 	}
 
 

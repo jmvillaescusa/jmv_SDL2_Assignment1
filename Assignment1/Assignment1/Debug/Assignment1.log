@@ -1,4 +1,24 @@
-﻿  Player.cpp
-C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\Player.cpp(87,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\Player.cpp(88,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  AnimatedTexture.cpp
+  AssetManager.cpp
+  AudioManager.cpp
+  GameEntity.cpp
+  GameManager.cpp
+  Graphics.cpp
+  InputManager.cpp
+C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\MathHelper.h(23,15): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Level.cpp
+  main.cpp
+  Platform.cpp
+  Player.cpp
+  PlayScreen.cpp
+  Random.cpp
+  Scoreboard.cpp
+  ScreenManager.cpp
+  Spray.cpp
+  StartScreen.cpp
+  Texture.cpp
+  Timer.cpp
+  UserInterface.cpp
+  Generating Code...
+C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\MathHelper.h(23,15): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
   Assignment1.vcxproj -> C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Debug\Assignment1.exe

@@ -21,17 +21,10 @@ void Player::HandleMovement() {
 		mIsMoving = true;
 		Translate(-Vec2_Up * 3750 * mTimer->DeltaTime(), WORLD);
 	}
-	else if (mInput->KeyDown(SDL_SCANCODE_DOWN) && mPlayer->Position().y < 690.0f) {
+	else if (mInput->KeyPressed(SDL_SCANCODE_DOWN) && mPlayer->Position().y < 690.0f) {
 		// Fall through platforms
 		mIsMoving = true;
 		mAirborne = true;
-	}
-
-	if (mInput->KeyRelease(SDL_SCANCODE_RIGHT) || mInput->KeyRelease(SDL_SCANCODE_LEFT)) {
-		mIsMoving = false;
-	}
-	if (mInput->KeyRelease(SDL_SCANCODE_UP) || mInput->KeyRelease(SDL_SCANCODE_DOWN)) {
-		mIsMoving = false;
 	}
 
 	// Gravity
@@ -73,10 +66,19 @@ Player::Player() {
 	mAnimating = false;
 	mWasHit = false;
 
+	mIsMoving = NULL;
+	mMovingRight = NULL;
+
 	mAirborne = true;
 
 	mScore = 0;
 	mLives = 3;
+
+	// Sprays
+	mSprays[0] = NULL;
+	for (int i = 0; i < MAX_SPRAYS; ++i) {
+		mSprays[i] = new Spray();
+	}
 
 	mPlayer = new Texture("stanley_walkleft.png", 0, 0, 77, 90);
 	mPlayer->Parent(this);
@@ -84,8 +86,8 @@ Player::Player() {
 
 	mCollision.x = Position().x;
 	mCollision.y = Position().y + (mPlayer->GetHeight() / 2);
-	mCollision.w = mPlayer->GetWidth();
-	mCollision.h = mPlayer->GetHeight();
+	mCollision.w = (float)mPlayer->GetWidth();
+	mCollision.h = (float)mPlayer->GetHeight();
 
 	mPlayerWalkLeft = new AnimatedTexture("stanley_walkleft.png", 0, 0, 77, 90, 4, 0.5f, AnimatedTexture::HORIZONTAL);
 	mPlayerWalkLeft->Parent(mPlayer);
@@ -99,11 +101,6 @@ Player::Player() {
 	mDeathAnimation->Parent(mPlayer);
 	mDeathAnimation->Position(Vec2_Zero);
 	mDeathAnimation->SetWrapMode(AnimatedTexture::ONCE);
-
-	// Bullet
-	for (int i = 0; i < MAX_SPRAYS; ++i) {
-		mSprays[i] = new Spray();
-	}
 }
 Player::~Player() {
 	mTimer = nullptr;

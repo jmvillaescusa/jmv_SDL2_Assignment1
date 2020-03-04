@@ -20,7 +20,7 @@ namespace SDLFramework {
 		}
 
 		float Magnitude() const {
-			return (float)sqrt(x * x + y * y);
+			return sqrt(x * x + y * y);
 		}
 
 		Vector2 Normalized() const {

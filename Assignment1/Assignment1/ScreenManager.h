@@ -3,8 +3,6 @@
 #include "StartScreen.h"
 #include "PlayScreen.h"
 
-//using namespace SDLFramework;
-
 class ScreenManager {
 private:
 	static ScreenManager* sInstance;

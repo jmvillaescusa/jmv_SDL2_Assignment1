@@ -13,7 +13,7 @@ private:
 	Timer* mTimer;
 	InputManager* mInputManager;
 	AudioManager* mAudioManager;
-	
+	UserInterface* mUI;
 
 	// Top Bar Entities
 	/*GameEntity* mTopBar;

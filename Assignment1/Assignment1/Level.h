@@ -8,9 +8,12 @@ class Level : public GameEntity {
 public:
 	enum LevelStates {RUNNING, FINISHED, GAMEOVER};
 
+protected:
+	UserInterface* mUI;
+
 private:
 	Timer* mTimer;
-	//UserInterface* mUI;
+	
 
 	int mLevel;
 	bool mLevelStarted;

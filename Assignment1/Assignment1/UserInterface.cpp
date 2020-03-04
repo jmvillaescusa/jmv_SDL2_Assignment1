@@ -18,7 +18,7 @@ UserInterface::UserInterface() {
 	mTopBar = new GameEntity(Graphics::SCREEN_WIDTH * 0.5f, 50);
 	mTopBar->Parent(this);
 
-	mHighLabel = new Texture("TOP", "emulogic.ttf", 32, {200, 0, 0} );
+	mHighLabel = new Texture("TOP", "emulogic.ttf", 32, { 200, 0, 0 });
 	mHighLabel->Parent(mTopBar);
 	mHighLabel->Position(-Graphics::SCREEN_WIDTH * 0.10f, 0.0f);
 
