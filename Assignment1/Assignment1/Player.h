@@ -8,6 +8,8 @@
 using namespace SDLFramework;
 
 class Player : public GameEntity {
+public:
+	// states
 private:
 	Timer* mTimer;
 	InputManager* mInput;

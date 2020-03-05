@@ -5,6 +5,9 @@
 using namespace SDLFramework;
 
 class Flower : public GameEntity {
+public:
+	//states
+
 private:
 	Texture* mFlower[5]; 
 

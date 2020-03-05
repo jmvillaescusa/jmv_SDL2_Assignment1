@@ -28,10 +28,18 @@ Platform::~Platform() {
 }
 
 void Platform::CreateCollision(int i) {
-	mCollision.x = mPlatform[i]->Position().x;
-	mCollision.y = mPlatform[i]->Position().y - (mPlatform[i]->GetHeight() / 2);
-	mCollision.w = (float)mPlatform[i]->GetWidth();
-	mCollision.h = 10.0f;
+	if (i == 1) {
+		mCollision.x = mPlatform[i]->Position().x;
+		mCollision.y = mPlatform[i]->Position().y;
+		mCollision.w = (float)mPlatform[i]->GetWidth();
+		mCollision.h = (float)mPlatform[i]->GetHeight();
+	}
+	else {
+		mCollision.x = mPlatform[i]->Position().x;
+		mCollision.y = mPlatform[i]->Position().y - (mPlatform[i]->GetHeight() / 2);
+		mCollision.w = (float)mPlatform[i]->GetWidth();
+		mCollision.h = 10.0f;
+	}
 }
 
 void Platform::Render(int i) {

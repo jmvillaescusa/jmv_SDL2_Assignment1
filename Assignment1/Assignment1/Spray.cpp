@@ -6,6 +6,7 @@ Spray::Spray() {
 	mTexture = new AnimatedTexture("spray.png", 0, 0, 56, 64, 7, 1.5f, AnimatedTexture::HORIZONTAL);
 	mTexture->Parent(this);
 
+	mContact = false;
 	mSpeed = 500;
 	CreateCollisions();
 
@@ -32,7 +33,7 @@ void Spray::CreateCollisions() {
 	mCollision.x = mTexture->Position().x;
 	mCollision.y = mTexture->Position().y;
 	mCollision.w = (float)mTexture->GetWidth();
-	mCollision.h = (float)mTexture->GetHeight();
+	mCollision.h = (float)mTexture->GetHeight() / 1.75;
 }
 
 void Spray::Update() {
@@ -43,7 +44,7 @@ void Spray::Update() {
 		mCollision.y = Position().y;
 
 		Vector2 pos = Position();
-		if (pos.y < -OFFSCREEN_BUFFER) {
+		if (pos.y < -OFFSCREEN_BUFFER || mContact) {
 			Reload();
 		}
 		mTexture->Update();

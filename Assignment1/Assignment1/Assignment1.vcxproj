@@ -133,6 +133,7 @@
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DonkeyKong.h" />
     <ClInclude Include="Flower.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Spray.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="AnimatedTexture.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="DonkeyKong.cpp" />
     <ClCompile Include="Flower.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameManager.cpp" />

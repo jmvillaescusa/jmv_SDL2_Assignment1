@@ -13,6 +13,7 @@ private:
 	AnimatedTexture* mTexture;
 
 	float mSpeed;
+	bool mContact;
 
 public:
 	Spray();
@@ -22,6 +23,11 @@ public:
 	void Reload();
 
 	void CreateCollisions();
+
+	bool GetContact() { return mContact; }
+	void SetContact(bool c) { mContact = c; }
+
+	AnimatedTexture* GetTexture() { return mTexture; }
 
 	void Update();
 	void Render();

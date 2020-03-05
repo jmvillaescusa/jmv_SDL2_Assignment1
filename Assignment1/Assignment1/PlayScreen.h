@@ -15,6 +15,7 @@ private:
 	Texture* mTree;
 	Texture* mVines;
 	Flower* mFlower[5];
+	DonkeyKong* mDK;
 
 	float mLevelStartTimer;
 	float mLevelStartDelay;

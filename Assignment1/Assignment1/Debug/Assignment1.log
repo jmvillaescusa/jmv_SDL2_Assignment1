@@ -1,2 +1,10 @@
-﻿  PlayScreen.cpp
+﻿  DonkeyKong.cpp
+C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\DonkeyKong.cpp(36,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  GameManager.cpp
+  Level.cpp
+  PlayScreen.cpp
+  ScreenManager.cpp
+  main.cpp
+  Generating Code...
+C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\DonkeyKong.cpp(39,32): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Assignment1.vcxproj -> C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Debug\Assignment1.exe

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Platform.h"
 #include "Flower.h"
+#include "DonkeyKong.h"
 
 class Level : public GameEntity {
 public:

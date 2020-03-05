@@ -38,6 +38,9 @@ PlayScreen::PlayScreen() {
 
 	mPlayer = nullptr;
 
+	mDK = new DonkeyKong();
+	mDK->Parent(this);
+
 	mCurrentLevel = 0;
 	mLevelStartTimer = 0;
 	mGameStarted = false;
@@ -69,6 +72,8 @@ PlayScreen::~PlayScreen() {
 
 	delete mPlayer;
 	mPlayer = nullptr;
+	delete mDK;
+	mDK = nullptr;
 }
 
 void PlayScreen::StartNewGame() {
@@ -102,8 +107,10 @@ void PlayScreen::PlatformCollisions() {
 
 void PlayScreen::SprayCollision() {
 	for (int i = 0; i < 3; i++) {
-		if (mLevel->CollisionCheck(mPlayer->mSprays[i], mPlatform[3])) {
-			std::cout << "test" << std::endl;
+		if (mLevel->CollisionCheck(mPlayer->mSprays[i], mDK) && !mPlayer->mSprays[i]->GetContact()) {
+			mPlayer->mSprays[i]->SetContact(true);
+			mDK->ResetTimer();
+			mDK->mState = DonkeyKong::HIT;
 		}
 	}
 }
@@ -127,6 +134,7 @@ void PlayScreen::Update() {
 		}
 
 		mPlayer->Update();
+		mDK->Update();
 		mUI->SetPlayerScore(mPlayer->Score());
 
 		PlatformCollisions();
@@ -156,6 +164,7 @@ void PlayScreen::Render() {
 		}
 
 		mPlayer->Render();
+		mDK->Render();
 	}
 
 	mUI->Render();

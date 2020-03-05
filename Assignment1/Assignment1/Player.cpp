@@ -19,7 +19,7 @@ void Player::HandleMovement() {
 	if (mInput->KeyPressed(SDL_SCANCODE_UP) && !mAirborne && mPlayer->Position().y > 571.0f) {
 		// Jumping
 		mIsMoving = true;
-		Translate(-Vec2_Up * 3750 * mTimer->DeltaTime(), WORLD);
+		Translate(-Vec2_Up * 3800 * mTimer->DeltaTime(), WORLD);
 	}
 	else if (mInput->KeyPressed(SDL_SCANCODE_DOWN) && mPlayer->Position().y < 690.0f) {
 		// Fall through platforms
@@ -51,6 +51,7 @@ void Player::HandleFiring() {
 		for (int i = 0; i < MAX_SPRAYS; ++i) {
 			if (!mSprays[i]->Active()) {
 				mSprays[i]->Fire(Position());
+				mSprays[i]->SetContact(false);
 				break;
 			}
 		}
