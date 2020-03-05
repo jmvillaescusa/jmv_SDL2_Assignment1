@@ -16,6 +16,8 @@ private:
 	AnimatedTexture* mDK_Hit;
 	Timer* mTimer;
 
+	Vector2 mStartingPosition = Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.25f);
+
 	float mSpeed = 10.0f;
 
 	float mHitStunTimer;

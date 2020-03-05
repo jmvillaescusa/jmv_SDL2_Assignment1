@@ -12,6 +12,7 @@ public:
 
 protected:
 	UserInterface* mUI;
+	LevelStates mState;
 
 private:
 	Timer* mTimer;
@@ -53,6 +54,9 @@ public:
 	bool CollisionCheck(GameEntity*, GameEntity*);
 
 	LevelStates State();
+
+	void LevelFinished() { mCurrentState = FINISHED; }
+	void LevelStart() { mCurrentState = RUNNING; }
 
 	void Update();
 	void Render();

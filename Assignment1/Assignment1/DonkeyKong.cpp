@@ -4,12 +4,12 @@ DonkeyKong::DonkeyKong() {
 	mTimer = Timer::Instance();
 
 	mDK = new AnimatedTexture("dk_climbing.png", 0, 0, 160, 128, 2, 0.75f, AnimatedTexture::HORIZONTAL);
-	mDK->Position(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.25f));
+	mDK->Position(Vector2(mStartingPosition));
 	mDK->Parent(this);
 	CreateCollision(mDK);
 	
 	mDK_Hit = new AnimatedTexture("dk_hit.png", 0, 0, 160, 128, 2, 0.75f, AnimatedTexture::HORIZONTAL);
-	mDK_Hit->Position(Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.25f));
+	mDK_Hit->Position(Vector2(mStartingPosition));
 	mDK_Hit->Parent(mDK);
 	CreateCollision(mDK_Hit);
 

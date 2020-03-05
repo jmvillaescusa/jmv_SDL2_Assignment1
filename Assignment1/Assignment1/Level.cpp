@@ -87,8 +87,6 @@ Level::Level(int level, Player* player) {
 	mGameOverTimer = 0.0f;
 	mGameOverLabelOnScreen = 1.0f;
 
-	mCurrentState = RUNNING;
-
 	// Enemy
 }
 Level::~Level() {
