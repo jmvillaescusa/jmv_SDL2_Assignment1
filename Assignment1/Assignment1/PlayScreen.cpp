@@ -1,14 +1,23 @@
 #include "PlayScreen.h"
 
 void PlayScreen::StartNextLevel() {
-	if (!mLevel->GetPlayerHit()) {
-		mCurrentLevel += 1;
-	}
 	mLevelStartTimer = 0.0f;
+
+	if (mLevelLabel != nullptr) {
+		delete mLevelLabel;
+		if (!mLevel->GetPlayerHit()) {
+			mCurrentLevel += 1;
+		}
+	}
+	
+	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel), "emulogic.ttf", 32, { 220, 220, 220 });
+	mLevelLabel->Parent(this);
+	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
 	
 	delete mLevel;
 	mLevel = new Level(mCurrentLevel, mPlayer);
 	mLevel->SetLevelStarted(true);
+	mLevel->SetPlayerHit(false);
 
 	if (mCurrentLevel <= 7) {
 		mDK->SetSpeed(mDK->GetSpeed() + mCurrentLevel);
@@ -24,15 +33,7 @@ void PlayScreen::StartNextLevel() {
 		mDK->SetStunDelay(0.25);
 	}
 
-	delete mReadyLabel;
-	mReadyLabel = new Texture("Ready?", "emulogic.ttf", 32, { 220, 220, 220 });
-	mReadyLabel->Parent(this);
-	mReadyLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.525f);
-	
-	delete mLevelLabel;
-	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel + 1), "emulogic.ttf", 32, { 220, 220, 220 });
-	mLevelLabel->Parent(this);
-	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
+	std::cout << mCurrentLevel << std::endl;
 }
 
 PlayScreen::PlayScreen() {
@@ -62,6 +63,10 @@ PlayScreen::PlayScreen() {
 	mReadyLabel->Parent(this);
 	mReadyLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.525f);
 
+	mCurrentLevel = 0;
+	mLevelStartTimer = 0;
+	mGameStarted = false;
+
 	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel + 1), "emulogic.ttf", 32, { 220, 220, 220 });
 	mLevelLabel->Parent(this);
 	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
@@ -69,16 +74,12 @@ PlayScreen::PlayScreen() {
 	mLevelStartDelay = 2.0f;
 	mLevel = new Level(mCurrentLevel, mPlayer);
 	mLevel->SetLevelStarted(false);
+	mLevel->SetPlayerHit(false);
 
 	mPlayer = nullptr;
 
 	mDK = DonkeyKong::Instance();
 	mDK->Parent(this);
-
-	mCurrentLevel = 0;
-	mLevelStartTimer = 0;
-	mGameStarted = false;
-
 	// Enemy::CreatePaths();
 }
 PlayScreen::~PlayScreen() {

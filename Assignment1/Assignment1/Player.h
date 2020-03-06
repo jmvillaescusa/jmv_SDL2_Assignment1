@@ -52,6 +52,7 @@ public:
 
 	void Visible(bool visible);
 	bool IsAnimating();
+	void SetAnimating(bool a) { mAnimating = a; }
 
 	int Score();
 

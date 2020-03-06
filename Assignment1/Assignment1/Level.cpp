@@ -19,19 +19,20 @@ void Level::HandleStartLevels() {
 void Level::HandlePlayerDeath() {
 	if (mPlayer->Lives() > 0) {
 		if (mRespawnTimer == 0.0f) {
-			mPlayer->Visible(false);
+			mPlayer->SetAnimating(true);
 		}
 
 		mRespawnTimer += mTimer->DeltaTime();
 		if (mRespawnTimer >= mRespawnDelay) {
-			mPlayer->Active(true);
-			mPlayer->Visible(true);
 			mPlayerHit = false;
 			mPlayer->DecreaseLife();
-
+			mPlayer->SetAnimating(false);
 			mDK->Position(Vec2_Zero);
 			mDK->mState = DonkeyKong::DOWN;
+			mRespawnTimer = 0.0f;
+			mLevelStarted = false;
 		}
+		std::cout << mRespawnTimer << std::endl;
 	}
 	else {
 		if (mGameOverTimer == 0.0f) {
@@ -70,7 +71,8 @@ Level::Level(int level, Player* player) {
 	mUI = UserInterface::Instance();
 
 	mDK = DonkeyKong::Instance();
-	
+	mDK->mState = DonkeyKong::DOWN;
+	mDK->Position(Vec2_Zero);
 
 	mLevel = level;
 	mLevelStarted = false;
