@@ -15,7 +15,7 @@ void UserInterface::Release() {
 UserInterface::UserInterface() {
 	mTimer = Timer::Instance();
 
-	mTopBar = new GameEntity(Graphics::SCREEN_WIDTH * 0.5f, 50);
+	mTopBar = new GameEntity(Graphics::SCREEN_WIDTH * 0.5f, 32.5);
 	mTopBar->Parent(this);
 
 	mHighLabel = new Texture("TOP", "emulogic.ttf", 32, { 200, 0, 0 });

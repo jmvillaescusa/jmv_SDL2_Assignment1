@@ -16,7 +16,6 @@ protected:
 
 private:
 	Timer* mTimer;
-	
 
 	int mLevel;
 	bool mLevelStarted;

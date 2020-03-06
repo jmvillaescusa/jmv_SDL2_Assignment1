@@ -10,6 +10,30 @@ void PlayScreen::StartNextLevel() {
 
 	delete mDK;
 	mDK = new DonkeyKong();
+
+	if (mCurrentLevel <= 7) {
+		mDK->SetSpeed(mDK->GetSpeed() + mCurrentLevel);
+		if (mCurrentLevel <= 5) {
+			mDK->SetStunDelay(mDK->GetStunDelay() - (mCurrentLevel/20.0f));
+		}
+		else {
+			mDK->SetStunDelay(0.25);
+		}
+	}
+	else {
+		mDK->SetSpeed(17);
+		mDK->SetStunDelay(0.25);
+	}
+
+	delete mReadyLabel;
+	mReadyLabel = new Texture("Ready?", "emulogic.ttf", 32, { 220, 220, 220 });
+	mReadyLabel->Parent(this);
+	mReadyLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.525f);
+	
+	delete mLevelLabel;
+	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel + 1), "emulogic.ttf", 32, { 220, 220, 220 });
+	mLevelLabel->Parent(this);
+	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
 }
 
 PlayScreen::PlayScreen() {
@@ -35,8 +59,16 @@ PlayScreen::PlayScreen() {
 	mVines->Parent(this);
 	mVines->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.26f);
 
+	mReadyLabel = new Texture("Ready?", "emulogic.ttf", 32, { 220, 220, 220 });
+	mReadyLabel->Parent(this);
+	mReadyLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.525f);
+
+	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel + 1), "emulogic.ttf", 32, { 220, 220, 220 });
+	mLevelLabel->Parent(this);
+	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
+
 	mLevel = nullptr;
-	mLevelStartDelay = 1.0f;
+	mLevelStartDelay = 2.0f;
 	mLevelStarted = false;
 
 	mPlayer = nullptr;
@@ -54,6 +86,11 @@ PlayScreen::~PlayScreen() {
 	mTimer = nullptr;
 	mAudio = nullptr;
 	mUI = nullptr;
+
+	delete mReadyLabel;
+	mReadyLabel = nullptr;
+	delete mLevelLabel;
+	mLevelLabel = nullptr;
 
 	delete mLevel;
 	mLevel = nullptr;
@@ -82,7 +119,7 @@ PlayScreen::~PlayScreen() {
 void PlayScreen::StartNewGame() {
 	delete mPlayer;
 	mPlayer = new Player();
-	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.7f);
+	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.3f, Graphics::SCREEN_HEIGHT * 0.75f);
 	mPlayer->Active(true);
 
 	mUI->SetLives(mPlayer->Lives());
@@ -130,7 +167,11 @@ void PlayScreen::Update() {
 		else {
 			mLevel->Update();
 			if (mLevel->State() == Level::FINISHED) {
-				mLevelStarted = false;
+				mDK->Translate(-Vec2_Up * 45 * 2 * mTimer->DeltaTime(), WORLD);
+
+				if (mDK->Position().y <= -300) {
+					mLevelStarted = false;
+				}
 			}
 
 			mPlayer->Update();
@@ -140,8 +181,15 @@ void PlayScreen::Update() {
 			PlatformCollisions();
 			SprayCollision();
 
-			if (mDK->Position().y <= -100) {
+			// Level Complete
+			if (mDK->Position().y <= -125) {
+				
 				mLevel->LevelFinished();
+			}
+			
+			// Player loses a life
+			if (mDK->Position().y >= 225) {
+				
 			}
 		}
 		if (mCurrentLevel > 0) {
@@ -153,8 +201,10 @@ void PlayScreen::Update() {
 	}
 }
 void PlayScreen::Render() {
-	if (!mGameStarted) {
-		
+	if (!mLevelStarted) {
+		// Render Stage label and Ready label
+		mReadyLabel->Render();
+		mLevelLabel->Render();
 	}
 	
 	for (int i = 0; i < 4; i++) {

@@ -36,7 +36,7 @@ void DonkeyKong::Update() {
 		Translate(Vec2_Up * (mSpeed * 1.75) * mTimer->DeltaTime(), WORLD);
 		break;
 	case HIT:
-		Translate(-Vec2_Up * (mSpeed * 2.75) * mTimer->DeltaTime(), WORLD);
+		Translate(-Vec2_Up * (10 * 2) * mTimer->DeltaTime(), WORLD);
 		mHitStunTimer += mTimer->DeltaTime();
 
 		if (mHitStunTimer > mHitStunDelay) {

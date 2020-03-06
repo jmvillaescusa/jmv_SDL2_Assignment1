@@ -17,6 +17,9 @@ private:
 	Flower* mFlower[5];
 	DonkeyKong* mDK;
 
+	Texture* mReadyLabel;
+	Texture* mLevelLabel;
+
 	float mLevelStartTimer;
 	float mLevelStartDelay;
 

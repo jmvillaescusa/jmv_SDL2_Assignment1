@@ -15,17 +15,6 @@ private:
 	AudioManager* mAudioManager;
 	UserInterface* mUI;
 
-	// Top Bar Entities
-	/*GameEntity* mTopBar;
-	Texture* mPlayerTwo;
-	Texture* mPlayerOne;
-	Texture* mHiScore;
-
-	Scoreboard* mPlayerOneScore;
-	Scoreboard* mPlayerTwoScore;
-	Scoreboard* mTopScore;*/
-	//UserInterface* mUI;
-
 	// Logo Entities
 	GameEntity* mLogo;
 	AnimatedTexture* mDonkeyKong;
