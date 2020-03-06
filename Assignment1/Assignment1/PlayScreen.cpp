@@ -1,15 +1,14 @@
 #include "PlayScreen.h"
 
 void PlayScreen::StartNextLevel() {
-	mCurrentLevel += 1;
+	if (!mLevel->GetPlayerHit()) {
+		mCurrentLevel += 1;
+	}
 	mLevelStartTimer = 0.0f;
-	mLevelStarted = true;
 	
 	delete mLevel;
 	mLevel = new Level(mCurrentLevel, mPlayer);
-
-	delete mDK;
-	mDK = new DonkeyKong();
+	mLevel->SetLevelStarted(true);
 
 	if (mCurrentLevel <= 7) {
 		mDK->SetSpeed(mDK->GetSpeed() + mCurrentLevel);
@@ -67,13 +66,13 @@ PlayScreen::PlayScreen() {
 	mLevelLabel->Parent(this);
 	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
 
-	mLevel = nullptr;
 	mLevelStartDelay = 2.0f;
-	mLevelStarted = false;
+	mLevel = new Level(mCurrentLevel, mPlayer);
+	mLevel->SetLevelStarted(false);
 
 	mPlayer = nullptr;
 
-	mDK = new DonkeyKong();
+	mDK = DonkeyKong::Instance();
 	mDK->Parent(this);
 
 	mCurrentLevel = 0;
@@ -110,15 +109,13 @@ PlayScreen::~PlayScreen() {
 	delete mVines;
 	mVines = nullptr;
 
-	delete mPlayer;
 	mPlayer = nullptr;
-	delete mDK;
 	mDK = nullptr;
 }
 
 void PlayScreen::StartNewGame() {
 	delete mPlayer;
-	mPlayer = new Player();
+	mPlayer = Player::Instance();
 	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.3f, Graphics::SCREEN_HEIGHT * 0.75f);
 	mPlayer->Active(true);
 
@@ -126,14 +123,14 @@ void PlayScreen::StartNewGame() {
 	mUI->SetPlayerScore(mPlayer->Score());
 
 	mGameStarted = true;
-	mLevelStarted = false;
+	mLevel->SetLevelStarted(false);
 	mLevelStartTimer = 0.0f;
 	mCurrentLevel = 0;
 	// Play theme
 } 
 
 bool PlayScreen::GameOver() {
-	return !mLevelStarted ? false : (mLevel->State() == Level::GAMEOVER);
+	return !mLevel->GetLevelStarted() ? false : (mLevel->State() == Level::GAMEOVER);
 }
 
 void PlayScreen::PlatformCollisions() {
@@ -157,7 +154,7 @@ void PlayScreen::SprayCollision() {
 
 void PlayScreen::Update() {
 	if (mGameStarted) {
-		if (!mLevelStarted) {
+		if (!mLevel->GetLevelStarted()) {
 			mLevelStartTimer += mTimer->DeltaTime();
 			if (mLevelStartTimer >= mLevelStartDelay) {
 				StartNextLevel();
@@ -170,7 +167,7 @@ void PlayScreen::Update() {
 				mDK->Translate(-Vec2_Up * 45 * 2 * mTimer->DeltaTime(), WORLD);
 
 				if (mDK->Position().y <= -300) {
-					mLevelStarted = false;
+					mLevel->SetLevelStarted(false);
 				}
 			}
 
@@ -183,13 +180,18 @@ void PlayScreen::Update() {
 
 			// Level Complete
 			if (mDK->Position().y <= -125) {
-				
 				mLevel->LevelFinished();
 			}
 			
 			// Player loses a life
 			if (mDK->Position().y >= 225) {
-				
+				if (mDK->Position().y <= 314.0f) {
+					mDK->Translate(Vec2_Up * 45 * 2 * mTimer->DeltaTime(), WORLD);
+				}
+				else {
+					mDK->mState = DonkeyKong::STAND;
+					mLevel->SetPlayerHit(true);
+				}
 			}
 		}
 		if (mCurrentLevel > 0) {
@@ -201,7 +203,7 @@ void PlayScreen::Update() {
 	}
 }
 void PlayScreen::Render() {
-	if (!mLevelStarted) {
+	if (!mLevel->GetLevelStarted()) {
 		// Render Stage label and Ready label
 		mReadyLabel->Render();
 		mLevelLabel->Render();
@@ -217,7 +219,7 @@ void PlayScreen::Render() {
 	mVines->Render();
 
 	if (mGameStarted) {
-		if (mLevelStarted) {
+		if (mLevel->GetLevelStarted()) {
 			mLevel->Render();
 		}
 

@@ -17,29 +17,30 @@ void Level::HandleStartLevels() {
 }
 
 void Level::HandlePlayerDeath() {
-	if (!mPlayer->IsAnimating()) {
-		if (mPlayer->Lives() > 0) {
-			if (mRespawnTimer == 0.0f) {
-				mPlayer->Visible(false);
-			}
-
-			mRespawnTimer += mTimer->DeltaTime();
-			if (mRespawnTimer >= mRespawnDelay) {
-				mPlayer->Active(true);
-				mPlayer->Visible(true);
-				mPlayerHit = false;
-				
-			}
+	if (mPlayer->Lives() > 0) {
+		if (mRespawnTimer == 0.0f) {
+			mPlayer->Visible(false);
 		}
-		else {
-			if (mGameOverTimer == 0.0f) {
-				mPlayer->Visible(false);
-			}
-			
-			mGameOverTimer += mTimer->DeltaTime();
-			if (mGameOverTimer >= mGameOverDelay) {
-				mCurrentState = GAMEOVER;
-			}
+
+		mRespawnTimer += mTimer->DeltaTime();
+		if (mRespawnTimer >= mRespawnDelay) {
+			mPlayer->Active(true);
+			mPlayer->Visible(true);
+			mPlayerHit = false;
+			mPlayer->DecreaseLife();
+
+			mDK->Position(Vec2_Zero);
+			mDK->mState = DonkeyKong::DOWN;
+		}
+	}
+	else {
+		if (mGameOverTimer == 0.0f) {
+			mPlayer->Visible(false);
+		}
+		
+		mGameOverTimer += mTimer->DeltaTime();
+		if (mGameOverTimer >= mGameOverDelay) {
+			mCurrentState = GAMEOVER;
 		}
 	}
 }
@@ -68,6 +69,9 @@ Level::Level(int level, Player* player) {
 	mTimer = Timer::Instance();
 	mUI = UserInterface::Instance();
 
+	mDK = DonkeyKong::Instance();
+	
+
 	mLevel = level;
 	mLevelStarted = false;
 
@@ -93,6 +97,7 @@ Level::~Level() {
 	mTimer = nullptr;
 	mPlayer = nullptr;
 	mUI = nullptr;
+	mDK = nullptr;
 
 	delete mGameOverLabel;
 	mGameOverLabel = nullptr;
@@ -103,17 +108,9 @@ Level::LevelStates Level::State() {
 }
 
 void Level::Update() {
-	if (!mLevelStarted) {
-		HandleStartLevels();
-	}
-	else {
-		/*if () {
+	if (mLevelStarted) {
 
-		}*/
-
-		/*for (auto e : mEnemies) {
-			e->Update();
-		}*/
+		// Enemies
 
 		if (mPlayerHit) {
 			HandlePlayerDeath();

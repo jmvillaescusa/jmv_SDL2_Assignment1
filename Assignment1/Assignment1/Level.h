@@ -18,7 +18,7 @@ private:
 	Timer* mTimer;
 
 	int mLevel;
-	bool mLevelStarted;
+	bool mLevelStarted = false;
 
 	float mLevelTimer;
 
@@ -27,6 +27,8 @@ private:
 	float mRespawnDelay;
 	float mRespawnTimer;
 	float mRespawnLabelOnScreen;
+
+	DonkeyKong* mDK;
 
 	Texture* mGameOverLabel;
 	float mGameOverDelay;
@@ -56,6 +58,12 @@ public:
 
 	void LevelFinished() { mCurrentState = FINISHED; }
 	void LevelStart() { mCurrentState = RUNNING; }
+
+	bool GetLevelStarted() { return mLevelStarted; }
+	void SetLevelStarted(bool l) { mLevelStarted = l; }
+
+	void SetPlayerHit(bool h) { mPlayerHit = h; }
+	bool GetPlayerHit() { return mPlayerHit; }
 
 	void Update();
 	void Render();

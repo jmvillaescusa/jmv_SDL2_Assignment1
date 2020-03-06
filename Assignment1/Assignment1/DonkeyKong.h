@@ -8,15 +8,17 @@ using namespace SDLFramework;
 class DonkeyKong : public GameEntity {
 public:
 	// states
-	enum states {DOWN, HIT};
+	enum states {DOWN, HIT, STAND};
 	states mState;
 
 private:
-	AnimatedTexture* mDK;
-	AnimatedTexture* mDK_Hit;
-	Timer* mTimer;
+	static DonkeyKong* sInstance;
 
 	Vector2 mStartingPosition = Vector2(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.25f);
+	AnimatedTexture* mDK;
+	AnimatedTexture* mDK_Hit;
+	AnimatedTexture* mDK_Stand;
+	Timer* mTimer;
 
 	float mSpeed = 9.0f;
 
@@ -26,6 +28,9 @@ private:
 public:
 	DonkeyKong();
 	~DonkeyKong();
+
+	static DonkeyKong* Instance();
+	static void Release();
 
 	void CreateCollision(AnimatedTexture*);
 

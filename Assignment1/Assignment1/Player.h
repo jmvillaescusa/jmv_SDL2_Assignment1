@@ -11,6 +11,8 @@ class Player : public GameEntity {
 public:
 	// states
 private:
+	static Player* sInstance;
+
 	Timer* mTimer;
 	InputManager* mInput;
 	AudioManager* mAudio;
@@ -45,11 +47,16 @@ public:
 	Player();
 	~Player();
 
+	static Player* Instance();
+	static void Release();
+
 	void Visible(bool visible);
 	bool IsAnimating();
 
 	int Score();
+
 	int Lives();
+	void DecreaseLife() { mLives--; }
 
 	bool GetAirborne() { return mAirborne; }
 	void SetAirborne(bool a) { mAirborne = a; }

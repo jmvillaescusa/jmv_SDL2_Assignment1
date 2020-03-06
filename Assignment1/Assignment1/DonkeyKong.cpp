@@ -1,5 +1,17 @@
 #include "DonkeyKong.h"
 
+DonkeyKong* DonkeyKong::sInstance = nullptr;
+DonkeyKong* DonkeyKong::Instance() {
+	if (sInstance == nullptr) {
+		sInstance = new DonkeyKong();
+	}
+	return sInstance;
+}
+void DonkeyKong::Release() {
+	delete sInstance;
+	sInstance = nullptr;
+}
+
 DonkeyKong::DonkeyKong() {
 	mTimer = Timer::Instance();
 
@@ -13,12 +25,22 @@ DonkeyKong::DonkeyKong() {
 	mDK_Hit->Parent(mDK);
 	CreateCollision(mDK_Hit);
 
+	mDK_Stand = new AnimatedTexture("donkeykong.png", 0, 0, 128, 152, 2, 0.75f, AnimatedTexture::HORIZONTAL);
+	mDK_Stand->Position(Vector2(mStartingPosition));
+	mDK_Stand->Parent(mDK);
+
 	mState = DOWN;
 }
 DonkeyKong::~DonkeyKong() {
 	mTimer = nullptr;
 	delete mDK;
 	mDK = nullptr;
+
+	delete mDK_Hit;
+	mDK_Hit = nullptr;
+
+	delete mDK_Stand;
+	mDK_Stand = nullptr;
 }
 
 void DonkeyKong::CreateCollision(AnimatedTexture* object) {
@@ -43,6 +65,9 @@ void DonkeyKong::Update() {
 			mState = DOWN;
 		}
 		break;
+	case STAND:
+		mDK_Stand->Update();
+		break;
 	}
 
 	mCollision.x = mDK->Position().x;
@@ -56,6 +81,9 @@ void DonkeyKong::Render() {
 		break;
 	case HIT:
 		mDK_Hit->Render();
+		break;
+	case STAND:
+		mDK_Stand->Render();
 		break;
 	}
 }

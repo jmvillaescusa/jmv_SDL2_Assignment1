@@ -1,5 +1,17 @@
 #include "Player.h"
 
+Player* Player::sInstance = nullptr;
+Player* Player::Instance() {
+	if (sInstance == nullptr) {
+		sInstance = new Player();
+	}
+	return sInstance;
+}
+void Player::Release() {
+	delete sInstance;
+	sInstance = nullptr;
+}
+
 void Player::HandleMovement() {
 	if (mInput->KeyDown(SDL_SCANCODE_RIGHT)) {
 		// Move Right
@@ -167,10 +179,6 @@ void Player::Update() {
 	// Bullets
 	for (int i = 0; i < MAX_SPRAYS; ++i) {
 		mSprays[i]->Update();
-	}
-
-	if (mInput->KeyPressed(SDL_SCANCODE_D)) {
-		mAnimating = !mAnimating;
 	}
 }
 void Player::Render() {

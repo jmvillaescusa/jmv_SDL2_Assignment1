@@ -24,8 +24,6 @@ private:
 	float mLevelStartDelay;
 
 	bool mGameStarted;
-
-	bool mLevelStarted;
 	int mCurrentLevel;
 
 	Player* mPlayer;
