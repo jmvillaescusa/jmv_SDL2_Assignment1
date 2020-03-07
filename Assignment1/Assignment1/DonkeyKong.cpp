@@ -55,7 +55,7 @@ void DonkeyKong::Update() {
 	switch (mState) {
 	case DOWN:
 		mHitStunTimer = 0;
-		Translate(Vec2_Up * (mSpeed * 10.75) * mTimer->DeltaTime(), WORLD);
+		Translate(Vec2_Up * (mSpeed * 1.75) * mTimer->DeltaTime(), WORLD);
 		break;
 	case HIT:
 		Translate(-Vec2_Up * (10 * 2.5) * mTimer->DeltaTime(), WORLD);

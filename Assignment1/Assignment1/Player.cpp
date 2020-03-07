@@ -85,7 +85,7 @@ Player::Player() {
 	mAirborne = true;
 
 	mScore = 0;
-	mLives = 0;
+	mLives = 2;
 
 	// Sprays
 	mSprays[0] = NULL;
