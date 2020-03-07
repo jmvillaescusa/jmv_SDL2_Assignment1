@@ -7,14 +7,14 @@ class ScreenManager {
 private:
 	static ScreenManager* sInstance;
 
-	enum Screens{START, PLAY};
-	Screens mCurrentScreen;
-
 	InputManager* mInput;
 	StartScreen* mStartScreen;
 	PlayScreen* mPlayScreen;
 
 public:
+	enum Screens { START, PLAY };
+	Screens mCurrentScreen;
+
 	static ScreenManager* Instance();
 	static void Release();
 

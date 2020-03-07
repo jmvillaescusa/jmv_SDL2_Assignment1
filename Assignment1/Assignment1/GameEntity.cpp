@@ -83,6 +83,7 @@ namespace SDLFramework {
 			mRotation = Rotation(WORLD);
 			mScale = Scale(WORLD);
 		}
+
 		else {
 			if (mParent != nullptr) {
 				Parent(nullptr);

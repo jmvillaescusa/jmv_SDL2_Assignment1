@@ -3,37 +3,44 @@
 void PlayScreen::StartNextLevel() {
 	mLevelStartTimer = 0.0f;
 
-	if (mLevelLabel != nullptr) {
-		delete mLevelLabel;
-		if (!mLevel->GetPlayerHit()) {
-			mCurrentLevel += 1;
-		}
-	}
-	
-	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel), "emulogic.ttf", 32, { 220, 220, 220 });
-	mLevelLabel->Parent(this);
-	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
+	UpdateLevelLabel();
 	
 	delete mLevel;
 	mLevel = new Level(mCurrentLevel, mPlayer);
 	mLevel->SetLevelStarted(true);
 	mLevel->SetPlayerHit(false);
 
-	if (mCurrentLevel <= 7) {
-		mDK->SetSpeed(mDK->GetSpeed() + mCurrentLevel);
-		if (mCurrentLevel <= 5) {
-			mDK->SetStunDelay(mDK->GetStunDelay() - (mCurrentLevel/20.0f));
+	std::cout << "Speed: " << mDK->GetSpeed() << std::endl;
+	std::cout << "Stun:  " << mDK->GetStunDelay() << std::endl;
+	std::cout << "Stage: " << mCurrentLevel << std::endl << std::endl;
+}
+
+void PlayScreen::UpdateLevelLabel() {
+	if (mLevelLabel != nullptr) {
+		delete mLevelLabel;
+		if (!mLevel->GetPlayerHit()) {
+			mCurrentLevel++;
+			if (mCurrentLevel <= 7) {
+				mDKSpeed++;
+				if (mCurrentLevel <= 5) {
+					mDKStun -= 0.05;
+				}
+				else {
+					mDKStun = 0.25;
+				}
+			}
+			else {
+				mDKSpeed = 17;
+				mDKStun = 0.25;
+			}
+			mDK->SetSpeed(mDKSpeed);
+			mDK->SetStunDelay(mDKStun);
 		}
-		else {
-			mDK->SetStunDelay(0.25);
-		}
-	}
-	else {
-		mDK->SetSpeed(17);
-		mDK->SetStunDelay(0.25);
 	}
 
-	std::cout << mCurrentLevel << std::endl;
+	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel), "emulogic.ttf", 32, { 220, 220, 220 });
+	mLevelLabel->Parent(this);
+	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
 }
 
 PlayScreen::PlayScreen() {
@@ -67,19 +74,17 @@ PlayScreen::PlayScreen() {
 	mLevelStartTimer = 0;
 	mGameStarted = false;
 
-	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel + 1), "emulogic.ttf", 32, { 220, 220, 220 });
-	mLevelLabel->Parent(this);
-	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
-
 	mLevelStartDelay = 2.0f;
 	mLevel = new Level(mCurrentLevel, mPlayer);
 	mLevel->SetLevelStarted(false);
-	mLevel->SetPlayerHit(false);
+	UpdateLevelLabel();
 
 	mPlayer = nullptr;
 
 	mDK = DonkeyKong::Instance();
 	mDK->Parent(this);
+	mDKSpeed = mDK->GetSpeed();
+	mDKStun = mDK->GetStunDelay();
 	// Enemy::CreatePaths();
 }
 PlayScreen::~PlayScreen() {
@@ -187,7 +192,7 @@ void PlayScreen::Update() {
 			// Player loses a life
 			if (mDK->Position().y >= 225) {
 				if (mDK->Position().y <= 314.0f) {
-					mDK->Translate(Vec2_Up * 45 * 2 * mTimer->DeltaTime(), WORLD);
+					mDK->Translate(Vec2_Up * 50 * 3 * mTimer->DeltaTime(), WORLD);
 				}
 				else {
 					mDK->mState = DonkeyKong::STAND;

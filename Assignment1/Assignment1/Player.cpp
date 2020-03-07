@@ -31,7 +31,7 @@ void Player::HandleMovement() {
 	if (mInput->KeyPressed(SDL_SCANCODE_UP) && !mAirborne && mPlayer->Position().y > 571.0f) {
 		// Jumping
 		mIsMoving = true;
-		Translate(-Vec2_Up * 3800 * mTimer->DeltaTime(), WORLD);
+		Translate(-Vec2_Up * 3850 * mTimer->DeltaTime(), WORLD);
 	}
 	else if (mInput->KeyPressed(SDL_SCANCODE_DOWN) && mPlayer->Position().y < 690.0f) {
 		// Fall through platforms
@@ -85,7 +85,7 @@ Player::Player() {
 	mAirborne = true;
 
 	mScore = 0;
-	mLives = 3;
+	mLives = 0;
 
 	// Sprays
 	mSprays[0] = NULL;

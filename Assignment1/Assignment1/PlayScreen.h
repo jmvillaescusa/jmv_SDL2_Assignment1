@@ -15,7 +15,10 @@ private:
 	Texture* mTree;
 	Texture* mVines;
 	Flower* mFlower[5];
+
 	DonkeyKong* mDK;
+	float mDKStun;
+	float mDKSpeed;
 
 	Texture* mReadyLabel;
 	Texture* mLevelLabel;
@@ -40,6 +43,10 @@ public:
 
 	void PlatformCollisions();
 	void SprayCollision();
+
+	void UpdateLevelLabel();
+
+
 
 	void Update();
 	void Render();
