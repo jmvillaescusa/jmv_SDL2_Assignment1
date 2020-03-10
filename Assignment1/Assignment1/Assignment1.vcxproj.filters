@@ -102,6 +102,9 @@
     <ClInclude Include="DonkeyKong.h">
       <Filter>Header Files\DK3</Filter>
     </ClInclude>
+    <ClInclude Include="Bees.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -168,6 +171,9 @@
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
     <ClCompile Include="DonkeyKong.cpp">
+      <Filter>Source Files\DK3</Filter>
+    </ClCompile>
+    <ClCompile Include="Bees.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
   </ItemGroup>

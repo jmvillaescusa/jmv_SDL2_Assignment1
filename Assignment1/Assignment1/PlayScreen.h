@@ -14,6 +14,8 @@ private:
 	Platform* mPlatform[4];
 	Texture* mTree;
 	Texture* mVines;
+	AnimatedTexture* mBeehiveA;
+	AnimatedTexture* mBeehiveB;
 	Flower* mFlower[5];
 
 	DonkeyKong* mDK;

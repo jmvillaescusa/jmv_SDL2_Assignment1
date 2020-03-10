@@ -60,7 +60,7 @@ void DonkeyKong::Update() {
 	case HIT:
 		Translate(-Vec2_Up * (10 * 2.5) * mTimer->DeltaTime(), WORLD);
 		mHitStunTimer += mTimer->DeltaTime();
-
+		mDK_Hit->Update();
 		if (mHitStunTimer > mHitStunDelay) {
 			mState = DOWN;
 		}

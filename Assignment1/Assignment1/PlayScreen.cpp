@@ -38,9 +38,17 @@ void PlayScreen::UpdateLevelLabel() {
 		}
 	}
 
-	mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel), "emulogic.ttf", 32, { 220, 220, 220 });
-	mLevelLabel->Parent(this);
-	mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
+	if (mCurrentLevel == 0) {
+		mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel + 1), "emulogic.ttf", 32, { 220, 220, 220 });
+		mLevelLabel->Parent(this);
+		mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
+	}
+
+	else {
+		mLevelLabel = new Texture("Stage " + std::to_string(mCurrentLevel), "emulogic.ttf", 32, { 220, 220, 220 });
+		mLevelLabel->Parent(this);
+		mLevelLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.475f);
+	}
 }
 
 PlayScreen::PlayScreen() {
@@ -65,6 +73,13 @@ PlayScreen::PlayScreen() {
 	mVines = new Texture("vines.png", 0, 0, 496, 320);
 	mVines->Parent(this);
 	mVines->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.26f);
+
+	mBeehiveA = new AnimatedTexture("beehive.png", 0, 0, 64, 64, 2, 0.25, AnimatedTexture::HORIZONTAL);
+	mBeehiveB = new AnimatedTexture("beehive.png", 0, 0, 64, 64, 2, 0.25, AnimatedTexture::HORIZONTAL);
+	mBeehiveA->Parent(this);
+	mBeehiveB->Parent(this);
+	mBeehiveA->Position(Graphics::SCREEN_WIDTH * 0.29f, Graphics::SCREEN_HEIGHT * 0.184f);
+	mBeehiveB->Position(Graphics::SCREEN_WIDTH * 0.71f, Graphics::SCREEN_HEIGHT * 0.184f);
 
 	mReadyLabel = new Texture("Ready?", "emulogic.ttf", 32, { 220, 220, 220 });
 	mReadyLabel->Parent(this);
@@ -114,6 +129,11 @@ PlayScreen::~PlayScreen() {
 	mTree = nullptr;
 	delete mVines;
 	mVines = nullptr;
+
+	delete mBeehiveA;
+	mBeehiveA = nullptr;
+	delete mBeehiveB;
+	mBeehiveB = nullptr;
 
 	mPlayer = nullptr;
 	mDK = nullptr;
@@ -166,8 +186,13 @@ void PlayScreen::Update() {
 				StartNextLevel();
 				mLevel->LevelStart();
 			}
+
+			mBeehiveA->Update();
+			mBeehiveB->Update();
 		}
 		else {
+			PlatformCollisions();
+			SprayCollision();
 			mLevel->Update();
 			if (mLevel->State() == Level::FINISHED) {
 				mDK->Translate(-Vec2_Up * 45 * 2 * mTimer->DeltaTime(), WORLD);
@@ -213,6 +238,8 @@ void PlayScreen::Render() {
 		// Render Stage label and Ready label
 		mReadyLabel->Render();
 		mLevelLabel->Render();
+
+		
 	}
 	
 	for (int i = 0; i < 4; i++) {
@@ -231,6 +258,9 @@ void PlayScreen::Render() {
 
 		mPlayer->Render();
 		mDK->Render();
+
+		mBeehiveA->Render();
+		mBeehiveB->Render();
 	}
 
 	mUI->Render();
