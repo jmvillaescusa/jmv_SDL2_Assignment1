@@ -163,6 +163,7 @@
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Bees.cpp" />
+    <ClCompile Include="BezierPath.cpp" />
     <ClCompile Include="DonkeyKong.cpp" />
     <ClCompile Include="Flower.cpp" />
     <ClCompile Include="GameEntity.cpp" />
