@@ -105,6 +105,9 @@
     <ClInclude Include="Bees.h">
       <Filter>Header Files\DK3</Filter>
     </ClInclude>
+    <ClInclude Include="BezierPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

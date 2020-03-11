@@ -133,6 +133,7 @@
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Bees.h" />
+    <ClInclude Include="BezierPath.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DonkeyKong.h" />
     <ClInclude Include="Flower.h" />
