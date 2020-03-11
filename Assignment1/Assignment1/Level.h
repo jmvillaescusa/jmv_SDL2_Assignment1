@@ -1,10 +1,10 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 #include "UserInterface.h"
-#include "Player.h"
 #include "Platform.h"
 #include "Flower.h"
 #include "DonkeyKong.h"
+#include "Bees.h"
 
 class Level : public GameEntity {
 public:

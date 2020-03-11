@@ -2,6 +2,7 @@
 #define _USERINTERFACE_H
 #include "Timer.h"
 #include "Scoreboard.h"
+#include "Player.h"
 
 // Need Fixing
 
@@ -10,8 +11,7 @@ private:
 	static UserInterface* sInstance;
 
 	Timer* mTimer;
-
-	GameEntity* mTopBar;
+	Player* mPlayer;
 
 	Texture* mHighLabel;
 	Scoreboard* mHighScoreboard;
@@ -19,17 +19,20 @@ private:
 	Texture* mPlayerOneLabel;
 	Scoreboard* mPlayerOneScore;
 
+
 	float mBlinkTimer;
 	float mBlinkInterval;
 	bool mPlayerOneLabelVisible;
 
-	GameEntity* mLives;
 	Texture* mLivesLabel;
-	int mTotalLives;
+	int mCurrentLife;
 
 public:
 	UserInterface();
 	~UserInterface();
+
+	Texture* mLives;
+	GameEntity* mTopBar;
 
 	static UserInterface* Instance();
 	static void Release();
