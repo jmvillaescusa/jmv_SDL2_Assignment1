@@ -1,0 +1,49 @@
+#ifndef _USERINTERFACE_H
+#define _USERINTERFACE_H
+#include "Timer.h"
+#include "Scoreboard.h"
+#include "Player.h"
+
+// Need Fixing
+
+class UserInterface : public GameEntity {
+private:
+	static UserInterface* sInstance;
+
+	Timer* mTimer;
+	Player* mPlayer;
+
+	Texture* mHighLabel;
+	Scoreboard* mHighScoreboard;
+
+	Texture* mPlayerOneLabel;
+	Scoreboard* mPlayerOneScore;
+
+
+	float mBlinkTimer;
+	float mBlinkInterval;
+	bool mPlayerOneLabelVisible;
+
+	Texture* mLivesLabel;
+	int mCurrentLife;
+
+public:
+	UserInterface();
+	~UserInterface();
+
+	Texture* mLives;
+	GameEntity* mTopBar;
+
+	static UserInterface* Instance();
+	static void Release();
+
+	void SetHighScore(int score);
+	void SetPlayerScore(int score);
+	void SetLives(int ships);
+
+	void SetLabelVisible(bool b) { mPlayerOneLabelVisible = b; }
+
+	void Update();
+	void Render();
+};
+#endif // !_USERINTERFACE_H
