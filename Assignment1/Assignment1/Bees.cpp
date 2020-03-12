@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "Bees.h"
 
 std::vector<std::vector<Vector2>> Bee::sPaths;
@@ -128,6 +129,9 @@ void Bee::Render() {
 		mBee->Render();
 	}
 }
+=======
+#include "Bees.h"
+>>>>>>> parent of 43d63b3... Added Lives to UI
 =======
 #include "Bees.h"
 >>>>>>> parent of 43d63b3... Added Lives to UI
