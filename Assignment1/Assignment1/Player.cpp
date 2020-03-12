@@ -85,7 +85,7 @@ Player::Player() {
 	mAirborne = true;
 
 	mScore = 0;
-	mLives = 2;
+	mLives = 3;
 
 	// Sprays
 	mSprays[0] = NULL;
@@ -147,16 +147,8 @@ int Player::Score() {
 	return mScore;
 }
 
-int Player::Lives() {
-	return mLives;
-}
-
 void Player::AddScore(int change) {
 	mScore += change;
-}
-
-bool Player::WasHit() {
-	return mWasHit;
 }
 
 void Player::Update() {

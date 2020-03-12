@@ -2,7 +2,6 @@
 #define _BEES_H
 #include "AnimatedTexture.h"
 #include "Timer.h"
-#include "BezierPath.h"
 
 using namespace SDLFramework;
 

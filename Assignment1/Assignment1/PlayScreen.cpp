@@ -10,9 +10,12 @@ void PlayScreen::StartNextLevel() {
 	mLevel->SetLevelStarted(true);
 	mLevel->SetPlayerHit(false);
 
+	mBees->Active(true);
+
 	std::cout << "Speed: " << mDK->GetSpeed() << std::endl;
 	std::cout << "Stun:  " << mDK->GetStunDelay() << std::endl;
-	std::cout << "Stage: " << mCurrentLevel << std::endl << std::endl;
+	std::cout << "Stage: " << mCurrentLevel << std::endl;
+	std::cout << "Lives: " << mPlayer->GetLives() << std::endl << std::endl;
 }
 
 void PlayScreen::UpdateLevelLabel() {
@@ -81,6 +84,9 @@ PlayScreen::PlayScreen() {
 	mBeehiveA->Position(Graphics::SCREEN_WIDTH * 0.29f, Graphics::SCREEN_HEIGHT * 0.184f);
 	mBeehiveB->Position(Graphics::SCREEN_WIDTH * 0.71f, Graphics::SCREEN_HEIGHT * 0.184f);
 
+	mBees = new Bee();
+	mBees->Parent(this);
+
 	mReadyLabel = new Texture("Ready?", "emulogic.ttf", 32, { 220, 220, 220 });
 	mReadyLabel->Parent(this);
 	mReadyLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.525f);
@@ -135,6 +141,9 @@ PlayScreen::~PlayScreen() {
 	delete mBeehiveB;
 	mBeehiveB = nullptr;
 
+	delete mBees;
+	mBees = nullptr;
+
 	mPlayer = nullptr;
 	mDK = nullptr;
 }
@@ -145,7 +154,7 @@ void PlayScreen::StartNewGame() {
 	mPlayer->Position(Graphics::SCREEN_WIDTH * 0.3f, Graphics::SCREEN_HEIGHT * 0.75f);
 	mPlayer->Active(true);
 
-	mUI->SetLives(mPlayer->Lives());
+	mUI->SetLives(mPlayer->GetLives());
 	mUI->SetPlayerScore(mPlayer->Score());
 
 	mGameStarted = true;
@@ -175,6 +184,12 @@ void PlayScreen::SprayCollision() {
 			mDK->ResetTimer();
 			mDK->mState = DonkeyKong::HIT;
 		}
+
+		if (mLevel->CollisionCheck(mPlayer->mSprays[i], mBees) && !mPlayer->mSprays[i]->GetContact()) {
+			mPlayer->mSprays[i]->SetContact(true);
+
+			std::cout << "Contact!\n";
+		}
 	}
 }
 
@@ -189,8 +204,11 @@ void PlayScreen::Update() {
 
 			mBeehiveA->Update();
 			mBeehiveB->Update();
+
+			mBees->Active(false);
 		}
 		else {
+
 			PlatformCollisions();
 			SprayCollision();
 			mLevel->Update();
@@ -204,6 +222,8 @@ void PlayScreen::Update() {
 
 			mPlayer->Update();
 			mDK->Update();
+			mBees->Update();
+
 			mUI->SetPlayerScore(mPlayer->Score());
 
 			PlatformCollisions();
@@ -254,6 +274,8 @@ void PlayScreen::Render() {
 	if (mGameStarted) {
 		if (mLevel->GetLevelStarted()) {
 			mLevel->Render();
+
+			mBees->Render();
 		}
 
 		mPlayer->Render();
