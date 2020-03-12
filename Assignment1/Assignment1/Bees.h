@@ -1,6 +1,7 @@
 #ifndef _BEES_H
 #define _BEES_H
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "AnimatedTexture.h"
 #include "Timer.h"
 #include "BezierPath.h"
@@ -65,6 +66,9 @@ public:
 	void Update();
 	void Render();
 };
+=======
+
+>>>>>>> parent of 43d63b3... Added Lives to UI
 =======
 
 >>>>>>> parent of 43d63b3... Added Lives to UI
