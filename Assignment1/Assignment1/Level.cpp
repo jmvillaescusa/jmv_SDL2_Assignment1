@@ -17,14 +17,16 @@ void Level::HandleStartLevels() {
 }
 
 void Level::HandlePlayerDeath() {
-	if (mPlayer->GetLives() >= 0) {
+	if (mPlayer->Lives() > 0) {
 		if (mRespawnTimer == 0.0f) {
 			mPlayer->SetAnimating(true);
 		}
 
 		mRespawnTimer += mTimer->DeltaTime();
 		if (mRespawnTimer >= mRespawnDelay) {
+			mPlayer->DecreaseLife();
 			mPlayer->SetAnimating(false);
+
 			mDK->Position(Vec2_Zero);
 			mDK->mState = DonkeyKong::DOWN;
 
@@ -116,7 +118,6 @@ void Level::Update() {
 			// Enemies
 
 			if (mPlayerHit) {
-				mPlayer->SetHit(true);
 				HandlePlayerDeath();
 			}
 		}

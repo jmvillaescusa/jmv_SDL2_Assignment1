@@ -56,8 +56,7 @@ public:
 
 	int Score();
 
-	int GetLives() { return mLives; }
-	void SetLives(int l) { mLives = l; }
+	int Lives();
 	void DecreaseLife() { mLives--; }
 
 	bool GetAirborne() { return mAirborne; }
@@ -67,8 +66,7 @@ public:
 
 	void AddScore(int change);
 
-	bool WasHit() { return mWasHit; }
-	void SetHit(bool h) { mWasHit = h; }
+	bool WasHit();
 
 	void Update();
 	void Render();
