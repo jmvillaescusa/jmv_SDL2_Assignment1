@@ -2,27 +2,54 @@
 #define _BEES_H
 #include "AnimatedTexture.h"
 #include "Timer.h"
+#include "BezierPath.h"
 
 using namespace SDLFramework;
 
 class Bee : public GameEntity {
-public:
-	enum states{IDLE, DIVE, DIES, GRAB};
-	states state;
+protected:
+	static std::vector<std::vector<Vector2>> sPaths;
 
-private:
+	enum states{IDLE, DIVE, DEAD, GRAB};
+	states mState;
+
 	Timer* mTimer;
 	AnimatedTexture* mBee;
+
+	unsigned mCurrentPath;
+	unsigned mCurrentWaypoint;
+
+private:
+	const float EPSILON = 5.0f;
 
 	float mSpeed;
 	int mHealth;
 
-	int mScoreValue;
+	const int mSCORE_VALUE = 300;
 	bool mGrabbedFlower;
 
+protected:
+	void HandleIdleState();
+	void HandleDiveState();
+	void HandleDeadState();
+	void HandleGrabState();
+
+	void HandleState();
+
+	void RenderIdleState();
+	void RenderDiveState();
+	void RenderDeadState();
+	void RenderGrabState();
+
+	void RenderState();
+
 public:
-	Bee();
+	static void CreatePaths();
+
+	Bee(int);
 	~Bee();
+
+	states CurrentState();
 
 	void CreateCollision();
 
@@ -31,6 +58,8 @@ public:
 
 	int GetHealth() { return mHealth; }
 	void SetHealth(float h) { mHealth = h; }
+
+	int GetScore();
 
 	void Update();
 	void Render();
