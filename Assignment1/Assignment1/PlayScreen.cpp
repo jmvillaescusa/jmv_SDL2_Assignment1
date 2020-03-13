@@ -10,7 +10,7 @@ void PlayScreen::StartNextLevel() {
 	mLevel->SetLevelStarted(true);
 	mLevel->SetPlayerHit(false);
 
-	mBees->Active(true);
+	mBees->mState = Bee::DIVE;
 
 	std::cout << "Speed: " << mDK->GetSpeed() << std::endl;
 	std::cout << "Stun:  " << mDK->GetStunDelay() << std::endl;
@@ -188,7 +188,7 @@ void PlayScreen::SprayCollision() {
 		if (mLevel->CollisionCheck(mPlayer->mSprays[i], mBees) && !mPlayer->mSprays[i]->GetContact()) {
 			mPlayer->mSprays[i]->SetContact(true);
 
-			std::cout << "Contact!\n";
+			mBees->mState = Bee::DIES;
 		}
 	}
 }

@@ -8,14 +8,13 @@ using namespace SDLFramework;
 class Bee : public GameEntity {
 public:
 	enum states{IDLE, DIVE, DIES, GRAB};
-	states state;
+	states mState;
 
 private:
 	Timer* mTimer;
 	AnimatedTexture* mBee;
 
 	float mSpeed;
-	int mHealth;
 
 	int mScoreValue;
 	bool mGrabbedFlower;
@@ -25,12 +24,10 @@ public:
 	~Bee();
 
 	void CreateCollision();
+	void ClearCollision();
 
 	float GetSpeed() { return mSpeed; }
 	void SetSpeed(float s) { mSpeed = s; }
-
-	int GetHealth() { return mHealth; }
-	void SetHealth(float h) { mHealth = h; }
 
 	void Update();
 	void Render();
