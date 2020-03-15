@@ -1,3 +1,33 @@
-﻿  Bees.cpp
-C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\Bees.cpp(6,92): warning C4305: 'argument': truncation from 'double' to 'float'
-  Assignment1.vcxproj -> C:\Users\jmvil\Documents\_Projects\SDL Projects\Assignment1\Assignment1\Debug\Assignment1.exe
+﻿  AnimatedTexture.cpp
+  AssetManager.cpp
+  AudioManager.cpp
+  Bees.cpp
+D:\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\Bees.cpp(6,92): warning C4305: 'argument': truncation from 'double' to 'float'
+  DonkeyKong.cpp
+D:\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\DonkeyKong.cpp(58,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Flower.cpp
+  GameEntity.cpp
+D:\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\MathHelper.h(23,15): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  GameManager.cpp
+  Graphics.cpp
+  InputManager.cpp
+D:\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\MathHelper.h(23,15): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Level.cpp
+  main.cpp
+  Platform.cpp
+  Player.cpp
+  PlayScreen.cpp
+D:\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\PlayScreen.cpp(29,21): warning C4305: '-=': truncation from 'double' to 'float'
+  Random.cpp
+  Scoreboard.cpp
+  ScreenManager.cpp
+  Spray.cpp
+D:\_Projects\SDL Projects\Assignment1\Assignment1\Assignment1\Spray.cpp(36,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  StartScreen.cpp
+  Generating Code...
+  Compiling...
+  Texture.cpp
+  Timer.cpp
+  UserInterface.cpp
+  Generating Code...
+  Assignment1.vcxproj -> D:\_Projects\SDL Projects\Assignment1\Assignment1\Debug\Assignment1.exe
