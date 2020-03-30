@@ -63,8 +63,6 @@ public:
 	bool GetAirborne() { return mAirborne; }
 	void SetAirborne(bool a) { mAirborne = a; }
 
-	Spray* GetSpray() { return mSprays[0]; }
-
 	void AddScore(int change);
 
 	bool WasHit() { return mWasHit; }
