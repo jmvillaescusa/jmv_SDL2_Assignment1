@@ -1,31 +1,16 @@
 #include "Spray.h"
-#include "BoxCollider.h"
-#include "PhysicsManager.h"
 
-bool Spray::IgnoreCollisions() {
-	return !Active();
-}
-
-Spray::Spray(bool friendly) {
+Spray::Spray() {
 	mTimer = Timer::Instance();
 
 	mTexture = new AnimatedTexture("spray.png", 0, 0, 56, 64, 7, 1.5f, AnimatedTexture::HORIZONTAL);
 	mTexture->Parent(this);
-	mTexture->Position(Vec2_Zero);
 
+	mContact = false;
 	mSpeed = 500;
+	CreateCollisions();
 
 	Reload();
-
-	// Collider
-	//AddCollider(new BoxCollider()));
-
-	if (friendly) {
-		PhysicsManager::Instance()->RegisterEntity(this, PhysicsManager::CollisionLayers::FriendlyProjectiles);
-	}
-	else {
-		PhysicsManager::Instance()->RegisterEntity(this, PhysicsManager::CollisionLayers::FriendlyProjectiles);
-	}
 }
 Spray::~Spray() {
 	mTimer = nullptr;
@@ -44,17 +29,22 @@ void Spray::Reload() {
 	Active(false);
 }
 
-void Spray::Hit(PhysEntity* other) {
-	Reload();
+void Spray::CreateCollisions() {
+	mCollision.x = mTexture->Position().x;
+	mCollision.y = mTexture->Position().y;
+	mCollision.w = (float)mTexture->GetWidth();
+	mCollision.h = (float)mTexture->GetHeight() / 1.75;
 }
 
 void Spray::Update() {
 	if (Active()) {
 
 		Translate(-Vec2_Up * mSpeed * mTimer->DeltaTime());
+		mCollision.x = Position().x;
+		mCollision.y = Position().y;
 
 		Vector2 pos = Position();
-		if (pos.y < -OFFSCREEN_BUFFER) {
+		if (pos.y < -OFFSCREEN_BUFFER || mContact) {
 			Reload();
 		}
 		mTexture->Update();
@@ -64,6 +54,5 @@ void Spray::Update() {
 void Spray::Render() {
 	if (Active()) {
 		mTexture->Render();
-		PhysEntity::Render();
 	}
 }

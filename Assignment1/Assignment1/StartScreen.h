@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "Scoreboard.h"
 #include "AudioManager.h"
+#include "UserInterface.h"
 
 using namespace SDLFramework;
 
@@ -12,16 +13,7 @@ private:
 	Timer* mTimer;
 	InputManager* mInputManager;
 	AudioManager* mAudioManager;
-
-	// Top Bar Entities
-	GameEntity* mTopBar;
-	Texture* mPlayerTwo;
-	Texture* mPlayerOne;
-	Texture* mHiScore;
-
-	Scoreboard* mPlayerOneScore;
-	Scoreboard* mPlayerTwoScore;
-	Scoreboard* mTopScore;
+	UserInterface* mUI;
 
 	// Logo Entities
 	GameEntity* mLogo;

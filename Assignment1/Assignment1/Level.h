@@ -1,20 +1,24 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 #include "UserInterface.h"
-#include "Player.h"
-
 #include "Platform.h"
+#include "Flower.h"
+#include "DonkeyKong.h"
+#include "Bees.h"
 
 class Level : public GameEntity {
 public:
 	enum LevelStates {RUNNING, FINISHED, GAMEOVER};
 
+protected:
+	UserInterface* mUI;
+	LevelStates mState;
+
 private:
 	Timer* mTimer;
-	UserInterface* mUI;
 
 	int mLevel;
-	bool mLevelStarted;
+	bool mLevelStarted = false;
 
 	float mLevelTimer;
 
@@ -23,6 +27,8 @@ private:
 	float mRespawnDelay;
 	float mRespawnTimer;
 	float mRespawnLabelOnScreen;
+
+	DonkeyKong* mDK;
 
 	Texture* mGameOverLabel;
 	float mGameOverDelay;
@@ -35,7 +41,6 @@ private:
 
 	void StartLevel();
 	void HandleStartLevels();
-	void HandleCollisions();
 	void HandlePlayerDeath();
 
 	//bool EnemyFlyingIn();
@@ -44,10 +49,21 @@ private:
 	void HandleEnemyDiving();
 
 public:
-	Level(int stage, UserInterface * UI, Player* player);
+	Level(int stage, Player* player);
 	~Level();
 
+	bool CollisionCheck(GameEntity*, GameEntity*);
+
 	LevelStates State();
+
+	void LevelFinished() { mCurrentState = FINISHED; }
+	void LevelStart() { mCurrentState = RUNNING; }
+
+	bool GetLevelStarted() { return mLevelStarted; }
+	void SetLevelStarted(bool l) { mLevelStarted = l; }
+
+	void SetPlayerHit(bool h) { mPlayerHit = h; }
+	bool GetPlayerHit() { return mPlayerHit; }
 
 	void Update();
 	void Render();

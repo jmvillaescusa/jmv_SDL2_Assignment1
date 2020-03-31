@@ -2,14 +2,16 @@
 #define _USERINTERFACE_H
 #include "Timer.h"
 #include "Scoreboard.h"
-#include "AudioManager.h"
+#include "Player.h"
+
+// Need Fixing
 
 class UserInterface : public GameEntity {
 private:
-	Timer* mTimer;
-	AudioManager* mAudio;
+	static UserInterface* sInstance;
 
-	GameEntity* mTopBar;
+	Timer* mTimer;
+	Player* mPlayer;
 
 	Texture* mHighLabel;
 	Scoreboard* mHighScoreboard;
@@ -17,21 +19,29 @@ private:
 	Texture* mPlayerOneLabel;
 	Scoreboard* mPlayerOneScore;
 
+
 	float mBlinkTimer;
 	float mBlinkInterval;
 	bool mPlayerOneLabelVisible;
 
-	GameEntity* mLives;
 	Texture* mLivesLabel;
-	int mTotalLives;
+	int mCurrentLife;
 
 public:
 	UserInterface();
 	~UserInterface();
 
+	Texture* mLives;
+	GameEntity* mTopBar;
+
+	static UserInterface* Instance();
+	static void Release();
+
 	void SetHighScore(int score);
 	void SetPlayerScore(int score);
 	void SetLives(int ships);
+
+	void SetLabelVisible(bool b) { mPlayerOneLabelVisible = b; }
 
 	void Update();
 	void Render();

@@ -9,19 +9,28 @@ private:
 	Timer* mTimer;
 	AudioManager* mAudio;
 	Level* mLevel;
-
 	UserInterface* mUI;
 
-	Platform* mPlatform;
+	Platform* mPlatform[4];
 	Texture* mTree;
 	Texture* mVines;
+	Flower* mFlower[5];
+
+	AnimatedTexture* mBeehiveA;
+	AnimatedTexture* mBeehiveB;
+	Bee* mBees;
+
+	DonkeyKong* mDK;
+	float mDKStun;
+	float mDKSpeed;
+
+	Texture* mReadyLabel;
+	Texture* mLevelLabel;
 
 	float mLevelStartTimer;
 	float mLevelStartDelay;
 
 	bool mGameStarted;
-
-	bool mLevelStarted;
 	int mCurrentLevel;
 
 	Player* mPlayer;
@@ -35,6 +44,13 @@ public:
 	void StartNewGame();
 
 	bool GameOver();
+
+	void PlatformCollisions();
+	void SprayCollision();
+
+	void UpdateLevelLabel();
+
+
 
 	void Update();
 	void Render();

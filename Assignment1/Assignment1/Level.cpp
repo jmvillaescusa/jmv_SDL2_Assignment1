@@ -16,42 +16,31 @@ void Level::HandleStartLevels() {
 	}
 }
 
-void Level::HandleCollisions() {
-	if (!mPlayerHit) {
-		if (mPlayer->WasHit()) {
-			mUI->SetLives(mPlayer->Lives());
+void Level::HandlePlayerDeath() {
+	if (mPlayer->GetLives() >= 0) {
+		if (mRespawnTimer == 0.0f) {
+			mPlayer->SetAnimating(true);
+		}
 
-			mPlayerHit = true;
+		mRespawnTimer += mTimer->DeltaTime();
+		if (mRespawnTimer >= mRespawnDelay) {
+			mPlayer->SetAnimating(false);
+			mDK->Position(Vec2_Zero);
+			mDK->mState = DonkeyKong::DOWN;
+
 			mRespawnTimer = 0.0f;
-			mPlayer->Active(false);
+			mLevelStarted = false;
 		}
 	}
-}
-
-void Level::HandlePlayerDeath() {
-	if (!mPlayer->IsAnimating()) {
-		if (mPlayer->Lives() > 0) {
-			if (mRespawnTimer == 0.0f) {
-				mPlayer->Visible(false);
-			}
-
-			mRespawnTimer += mTimer->DeltaTime();
-			if (mRespawnTimer >= mRespawnDelay) {
-				mPlayer->Active(true);
-				mPlayer->Visible(true);
-				mPlayerHit = false;
-				
-			}
+	else {
+		if (mGameOverTimer == 0.0f) {
+			mPlayer->Visible(false);
 		}
-		else {
-			if (mGameOverTimer == 0.0f) {
-				mPlayer->Visible(false);
-			}
-			
-			mGameOverTimer += mTimer->DeltaTime();
-			if (mGameOverTimer >= mGameOverDelay) {
-				mCurrentState = GAMEOVER;
-			}
+		
+		mGameOverTimer += mTimer->DeltaTime();
+		if (mGameOverTimer >= mGameOverDelay) {
+			mCurrentState = GAMEOVER;
+			mGameOverTimer = 0.0f;
 		}
 	}
 }
@@ -64,9 +53,25 @@ void Level::StartLevel() {
 	mLevelStarted = true;
 }
 
-Level::Level(int level, UserInterface* UI, Player* player) {
+bool Level::CollisionCheck(GameEntity* objA, GameEntity* objB) {
+	if (objA->GetCollision().x  > objB->GetCollision().x - (objB->GetCollision().w / 2) && 
+		objA->GetCollision().x < objB->GetCollision().x + objB->GetCollision().w - (objB->GetCollision().w / 2) && 
+		objA->GetCollision().y  > objB->GetCollision().y - (objB->GetCollision().h / 2) && 
+		objA->GetCollision().y < objB->GetCollision().y + objB->GetCollision().h - (objB->GetCollision().h / 2)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+Level::Level(int level, Player* player) {
 	mTimer = Timer::Instance();
-	mUI = UI;
+	mUI = UserInterface::Instance();
+
+	mDK = DonkeyKong::Instance();
+	mDK->mState = DonkeyKong::DOWN;
+	mDK->Position(Vec2_Zero);
 
 	mLevel = level;
 	mLevelStarted = false;
@@ -74,7 +79,6 @@ Level::Level(int level, UserInterface* UI, Player* player) {
 	mLevelTimer = 0.0f;
 
 	mPlayer = player;
-	mPlayerHit = false;
 	mRespawnDelay = 3.0f;
 	mRespawnTimer = 0.0f;
 	mRespawnLabelOnScreen = 2.0f;
@@ -83,18 +87,17 @@ Level::Level(int level, UserInterface* UI, Player* player) {
 	mGameOverLabel->Parent(this);
 	mGameOverLabel->Position(Graphics::SCREEN_WIDTH * 0.5f, Graphics::SCREEN_HEIGHT * 0.5f);
 
-	mGameOverDelay = 6.0f;
+	mGameOverDelay = 2.0f;
 	mGameOverTimer = 0.0f;
 	mGameOverLabelOnScreen = 1.0f;
-
-	mCurrentState = RUNNING;
 
 	// Enemy
 }
 Level::~Level() {
 	mTimer = nullptr;
-	mUI = nullptr;
 	mPlayer = nullptr;
+	mUI = nullptr;
+	mDK = nullptr;
 
 	delete mGameOverLabel;
 	mGameOverLabel = nullptr;
@@ -105,24 +108,28 @@ Level::LevelStates Level::State() {
 }
 
 void Level::Update() {
-	if (!mLevelStarted) {
-		HandleStartLevels();
-	}
-	else {
-		/*if () {
+	switch (mCurrentState)
+	{
+	case RUNNING:
+		if (mLevelStarted) {
 
-		}*/
+			// Enemies
 
-		/*for (auto e : mEnemies) {
-			e->Update();
-		}*/
-
-		HandleCollisions();
-
-		if (mPlayerHit) {
-			HandlePlayerDeath();
+			if (mPlayerHit) {
+				mPlayer->SetHit(true);
+				HandlePlayerDeath();
+			}
 		}
+		break;
+	case GAMEOVER:
+		mGameOverTimer += mTimer->DeltaTime();
+		if (mGameOverTimer >= 2.0) {
+			std::cout << "*Boots to Start Screen*\n";
+		}
+	default:
+		break;
 	}
+	
 }
 void Level::Render() {
 	if (!mLevelStarted) {

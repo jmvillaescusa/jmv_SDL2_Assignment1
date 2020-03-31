@@ -4,9 +4,10 @@ StartScreen::StartScreen() {
 	mTimer = Timer::Instance();
 	mInputManager = InputManager::Instance();
 	mAudioManager = AudioManager::Instance();
+	mUI = UserInterface::Instance();
 
 	// Top Bar Entities
-	mTopBar = new GameEntity(Graphics::SCREEN_WIDTH * 0.5f, 50);
+	/*mTopBar = new GameEntity(Graphics::SCREEN_WIDTH * 0.5f, 50);
 	mPlayerOne = new Texture("1UP", "emulogic.ttf", 32, { 0, 0, 195 });
 	mPlayerTwo = new Texture("2UP", "emulogic.ttf", 32, { 0, 0, 255 });
 	mHiScore = new Texture("TOP", "emulogic.ttf", 32, { 200, 0, 0 });
@@ -32,7 +33,8 @@ StartScreen::StartScreen() {
 	mPlayerTwoScore->Position(Graphics::SCREEN_WIDTH * 0.44f, 0);
 	mTopScore->Position(Graphics::SCREEN_WIDTH * 0.12f, 0);
 
-	mTopScore->Score(10000);
+	mTopScore->Score(10000);*/
+
 
 	// Logo Animation Variables
 	mAnimationStartPos = Vector2(Graphics::SCREEN_WIDTH, 0.0f);
@@ -91,23 +93,7 @@ StartScreen::~StartScreen() {
 	mTimer = nullptr;
 	mInputManager = nullptr;
 	mAudioManager = nullptr;
-
-	// Top Bar Entities
-	delete mTopBar;
-	mTopBar = nullptr;
-	delete mPlayerOne;
-	mPlayerOne = nullptr;
-	delete mPlayerTwo;
-	mPlayerTwo = nullptr;
-	delete mHiScore;
-	mHiScore = nullptr;
-
-	delete mPlayerOneScore;
-	mPlayerOneScore = nullptr;
-	delete mPlayerTwoScore;
-	mPlayerTwoScore = nullptr;
-	delete mTopScore;
-	mTopScore = nullptr;
+	mUI = nullptr;
 
 	// Logo Entities
 	delete mLogo;
@@ -143,11 +129,11 @@ void StartScreen::PlayTheme() {
 void StartScreen::Update() {
 	mDonkeyKong->Update();
 	if (!mAnimationDone) {
+		mUI->SetLabelVisible(true);
 		mAnimationTimer += mTimer->DeltaTime();
 		mTitle->Position(Lerp(mAnimationStartPos, mAnimationEndPos, mAnimationTimer / mAnimationTotalTime));
 		if (mAnimationTimer >= mAnimationTotalTime) {
 			mAnimationDone = true;
-			mPlayerOne->Active(true);
 		}
 	}
 	else {
@@ -171,8 +157,6 @@ void StartScreen::ResetAnimation() {
 	mAnimationTimer = 0.0f;
 	mAnimationDone = false;
 
-	mPlayerOne->Active(false);
-
 	mTitle->Position(mAnimationStartPos);
 }
 
@@ -195,13 +179,7 @@ void StartScreen::ChangeSelectedMode(int change) {
 
 void StartScreen::Render() {
 	if (mAnimationDone) {
-		mPlayerOne->Render();
-		mPlayerTwo->Render();
-		mHiScore->Render();
-
-		mPlayerOneScore->Render();
-		mPlayerTwoScore->Render();
-		mTopScore->Render();
+		mUI->Render();
 
 		mOnePlayerModeA->Render();
 		mOnePlayerModeB->Render();

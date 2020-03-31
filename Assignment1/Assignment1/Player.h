@@ -1,6 +1,5 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
-#include "PhysEntity.h"
 #include "AnimatedTexture.h"
 #include "AudioManager.h"
 #include "InputManager.h"
@@ -8,8 +7,12 @@
 
 using namespace SDLFramework;
 
-class Player : public PhysEntity {
+class Player : public GameEntity {
+public:
+	// states
 private:
+	static Player* sInstance;
+
 	Timer* mTimer;
 	InputManager* mInput;
 	AudioManager* mAudio;
@@ -19,6 +22,7 @@ private:
 	bool mWasHit;
 	bool mIsMoving;
 	bool mMovingRight;
+	bool mAirborne;
 
 	int mScore;
 	int mLives;
@@ -32,28 +36,37 @@ private:
 	Vector2 mMoveBounds;
 
 	static const int MAX_SPRAYS = 3;
-	Spray* mSprays[MAX_SPRAYS];
 
 	void HandleMovement();
 	void HandleFiring();
 
 public:
+	Spray* mSprays[MAX_SPRAYS];
+
+public:
 	Player();
 	~Player();
 
+	static Player* Instance();
+	static void Release();
+
 	void Visible(bool visible);
 	bool IsAnimating();
+	void SetAnimating(bool a) { mAnimating = a; }
 
 	int Score();
-	int Lives();
+
+	int GetLives() { return mLives; }
+	void SetLives(int l) { mLives = l; }
+	void DecreaseLife() { mLives--; }
+
+	bool GetAirborne() { return mAirborne; }
+	void SetAirborne(bool a) { mAirborne = a; }
 
 	void AddScore(int change);
 
-	// Inherited from PhysEntity
-	bool IgnoreCollisions() override;
-	void Hit(PhysEntity* other) override;
-
-	bool WasHit();
+	bool WasHit() { return mWasHit; }
+	void SetHit(bool h) { mWasHit = h; }
 
 	void Update();
 	void Render();

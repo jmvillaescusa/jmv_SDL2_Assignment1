@@ -1,12 +1,11 @@
 #ifndef _SPRAY_H
 #define _SPRAY_H
-#include "PhysEntity.h"
 #include "AnimatedTexture.h"
 #include "Timer.h"
 
 using namespace SDLFramework;
 
-class Spray : public PhysEntity {
+class Spray : public GameEntity {
 private:
 	static const int OFFSCREEN_BUFFER = 10;
 
@@ -14,19 +13,21 @@ private:
 	AnimatedTexture* mTexture;
 
 	float mSpeed;
-
-	// Inherited from PhysEntity
-	bool IgnoreCollisions() override;
+	bool mContact;
 
 public:
-	Spray(bool friendly);
+	Spray();
 	~Spray();
 
 	void Fire(Vector2 pos);
 	void Reload();
 
-	// Inherited from PhysEntity
-	void Hit(PhysEntity* other) override;
+	void CreateCollisions();
+
+	bool GetContact() { return mContact; }
+	void SetContact(bool c) { mContact = c; }
+
+	AnimatedTexture* GetTexture() { return mTexture; }
 
 	void Update();
 	void Render();

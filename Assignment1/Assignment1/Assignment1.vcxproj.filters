@@ -31,12 +31,6 @@
     <Filter Include="Source Files\DK3">
       <UniqueIdentifier>{10dc6818-a2ad-4beb-8cd2-e41681a5ebe1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Physics">
-      <UniqueIdentifier>{4f2df635-4fd3-4b24-b313-67b9640fa641}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Physics">
-      <UniqueIdentifier>{eaf4640f-4753-46bc-923c-ca37c72d5945}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathHelper.h">
@@ -90,28 +84,25 @@
     <ClInclude Include="Level.h">
       <Filter>Header Files\DK3</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxCollider.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="CircleCollider.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysEntity.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsHelper.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsManager.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="Spray.h">
       <Filter>Header Files\DK3</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
+    <ClInclude Include="Flower.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
+    <ClInclude Include="DonkeyKong.h">
+      <Filter>Header Files\DK3</Filter>
+    </ClInclude>
+    <ClInclude Include="Bees.h">
       <Filter>Header Files\DK3</Filter>
     </ClInclude>
   </ItemGroup>
@@ -167,31 +158,22 @@
     <ClCompile Include="Level.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxCollider.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleCollider.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysEntity.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsManager.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Spray.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface.h">
-      <Filter>Header Files\DK3</Filter>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source Files\DK3</Filter>
     </ClCompile>
     <ClCompile Include="UserInterface.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
+    <ClCompile Include="Flower.cpp">
+      <Filter>Source Files\DK3</Filter>
+    </ClCompile>
+    <ClCompile Include="DonkeyKong.cpp">
+      <Filter>Source Files\DK3</Filter>
+    </ClCompile>
+    <ClCompile Include="Bees.cpp">
       <Filter>Source Files\DK3</Filter>
     </ClCompile>
   </ItemGroup>

@@ -14,6 +14,7 @@ void ScreenManager::Release() {
 
 ScreenManager::ScreenManager() {
 	mInput = InputManager::Instance();
+
 	mStartScreen = new StartScreen();
 	mPlayScreen = new PlayScreen();
 
@@ -32,7 +33,6 @@ void ScreenManager::Update() {
 	{
 	case START:
 		mStartScreen->Update();
-		
 
 		if (mInput->KeyPressed(SDL_SCANCODE_RETURN)) {
 			mCurrentScreen = PLAY;
@@ -43,10 +43,6 @@ void ScreenManager::Update() {
 
 	case PLAY:
 		mPlayScreen->Update();
-		if (mInput->KeyPressed(SDL_SCANCODE_ESCAPE)) {
-			mCurrentScreen = START;
-			mStartScreen->PlayTheme();
-		}
 		break;
 	}
 }

@@ -76,11 +76,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\jmvil\Documents\_Projects\SDL Projects\SDL2-devel-2.0.10-VC\SDL2-2.0.10\include;C:\Users\jmvil\Documents\_Projects\SDL Projects\SDL2_ttf-devel-2.0.15-VC\SDL2_ttf-2.0.15\include;C:\Users\jmvil\Documents\_Projects\SDL Projects\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\include;C:\Users\jmvil\Documents\_Projects\SDL Projects\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\_Projects\SDL Projects\SDL2-devel-2.0.10-VC\SDL2-2.0.10\include;D:\_Projects\SDL Projects\SDL2_ttf-devel-2.0.15-VC\SDL2_ttf-2.0.15\include;D:\_Projects\SDL Projects\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\include;D:\_Projects\SDL Projects\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\jmvil\Documents\_Projects\SDL Projects\SDL2-devel-2.0.10-VC\SDL2-2.0.10\lib\x86;C:\Users\jmvil\Documents\_Projects\SDL Projects\SDL2_ttf-devel-2.0.15-VC\SDL2_ttf-2.0.15\lib\x86;C:\Users\jmvil\Documents\_Projects\SDL Projects\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\lib\x86;C:\Users\jmvil\Documents\_Projects\SDL Projects\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\_Projects\SDL Projects\SDL2-devel-2.0.10-VC\SDL2-2.0.10\lib\x86;D:\_Projects\SDL Projects\SDL2_ttf-devel-2.0.15-VC\SDL2_ttf-2.0.15\lib\x86;D:\_Projects\SDL Projects\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\lib\x86;D:\_Projects\SDL Projects\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -132,20 +132,18 @@
     <ClInclude Include="AnimatedTexture.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Bees.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="DonkeyKong.h" />
+    <ClInclude Include="Flower.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Spray.h" />
-    <ClInclude Include="CircleCollider.h" />
-    <ClInclude Include="Collider.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MathHelper.h" />
-    <ClInclude Include="PhysEntity.h" />
-    <ClInclude Include="PhysicsHelper.h" />
-    <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScreen.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -157,22 +155,21 @@
     <ClInclude Include="StartScreen.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedTexture.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AudioManager.cpp" />
-    <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="CircleCollider.cpp" />
-    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Bees.cpp" />
+    <ClCompile Include="DonkeyKong.cpp" />
+    <ClCompile Include="Flower.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PhysEntity.cpp" />
-    <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScreen.cpp" />
@@ -184,7 +181,6 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UserInterface.cpp" />
-    <ClCompile Include="UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
